@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageServerData } from './$types';
 	import Review from '$lib/components/Review.svelte';
+	import { kFormatter } from '$lib/utils';
 
 	export let data: PageServerData;
 	let { counts, latestReviews } = data;
@@ -34,17 +35,17 @@
 	<div class="stats">
 		<div class="stat">
 			<div class="stat-title">Pints</div>
-			<div class="stat-value">{drinkCount.toLocaleString()}</div>
+			<div class="stat-value">{kFormatter(drinkCount)}</div>
 		</div>
 
 		<div class="stat">
 			<div class="stat-title">Pubs & Bars</div>
-			<div class="stat-value">{placeCount.toLocaleString()}</div>
+			<div class="stat-value">{kFormatter(placeCount)}</div>
 		</div>
 
 		<div class="stat">
 			<div class="stat-title">Reviews</div>
-			<div class="stat-value">{reviewCount.toLocaleString()}</div>
+			<div class="stat-value">{kFormatter(reviewCount)}</div>
 		</div>
 	</div>
 

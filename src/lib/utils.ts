@@ -32,3 +32,9 @@ export const getDaysAgo = (date: Date | string) => {
 	const days = Math.floor(diff / (1000 * 60 * 60 * 24));
 	return days;
 };
+
+export const kFormatter = (num: number) => {
+	return Math.abs(num) > 999
+		? Math.sign(num) * Number((Math.abs(num) / 1000).toFixed(2)) + 'k'
+		: Math.sign(num) * Math.abs(num);
+};
