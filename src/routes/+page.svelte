@@ -31,18 +31,20 @@
 
 	<p class="text-3xl font-semibold text-gray-500">Explore, Compare and Enjoy Local Bars & Brews</p>
 
-	<div class="flex w-full justify-around">
-		<div class="flex flex-col items-center">
-			<span class="text-4xl font-bold">{drinkCount.toLocaleString()}</span>
-			<span class="text-xl font-semibold text-gray-500">Pints</span>
+	<div class="stats">
+		<div class="stat">
+			<div class="stat-title">Pints</div>
+			<div class="stat-value">{drinkCount.toLocaleString()}</div>
 		</div>
-		<div class="flex flex-col items-center">
-			<span class="text-4xl font-bold">{placeCount.toLocaleString()}</span>
-			<span class="text-xl font-semibold text-gray-500">Pubs & Bars</span>
+
+		<div class="stat">
+			<div class="stat-title">Pubs & Bars</div>
+			<div class="stat-value">{placeCount.toLocaleString()}</div>
 		</div>
-		<div class="flex flex-col items-center">
-			<span class="text-4xl font-bold">{reviewCount.toLocaleString()}</span>
-			<span class="text-xl font-semibold text-gray-500">Reviews</span>
+
+		<div class="stat">
+			<div class="stat-title">Reviews</div>
+			<div class="stat-value">{reviewCount.toLocaleString()}</div>
 		</div>
 	</div>
 
