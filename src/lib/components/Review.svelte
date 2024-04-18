@@ -39,11 +39,9 @@
 			<span class="font-semibold">{user.username}</span>
 			<span class="text-sm text-gray-500">Joined {formatDate(user.createdAt)}</span>
 		</div>
+		<span class="ml-auto text-sm text-gray-500">{daysAgoString}</span>
 	</div>
-	<div class="flex items-center justify-between">
-		<span class="line-clamp-1 font-bold">{drink.name} at {place.name}</span>
-		<span class="text-sm text-gray-500">{daysAgoString}</span>
-	</div>
+	<p class="line-clamp-1 font-bold">{drink.name} at {place.name}</p>
 	<div class="flex items-center gap-2">
 		<Rating {rating} size={24} />
 		<span class="badge badge-outline text-gray-700">{currencySymbol}{price}</span>
