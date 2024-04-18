@@ -1,12 +1,13 @@
 import type { PageServerLoad } from './$types';
 import { db } from '$lib/server/db';
 import { places, drinks, reviews } from '$lib/schema';
-import { count } from 'drizzle-orm';
+import { getTableColumns, count, eq, sql, isNotNull } from 'drizzle-orm';
 
 export const load: PageServerLoad = async () => {
 	const counts = await getCounts();
 	const latestReviews = await getLatestReviews();
-	return { counts, latestReviews };
+	const trendingPlaces = await getTrendingPlaces();
+	return { counts, trendingPlaces, latestReviews };
 };
 
 const getCounts = async () => {
@@ -38,4 +39,23 @@ const getLatestReviews = async (): Promise<ReviewWithData[]> => {
 			drink: review.drink! // Add non-null assertion operator
 		};
 	});
+};
+
+const getTrendingPlaces = async () => {
+	const results = await db
+		.select({
+			...getTableColumns(places),
+			avgRating: sql<number>`AVG(${reviews.rating})`,
+			avgPrice: sql<number>`AVG(${reviews.price})`,
+			currency: reviews.currency,
+			reviewCount: sql<number>`COUNT(${reviews.id})`
+		})
+		.from(places)
+		.innerJoin(reviews, eq(reviews.placeId, places.id))
+		.where(isNotNull(places.image))
+		.groupBy(places.id)
+		.orderBy(sql`COUNT(${reviews.id})`, sql`AVG(${reviews.rating})`)
+		.limit(6);
+
+	return results;
 };
