@@ -35,6 +35,8 @@ export const getDaysAgo = (date: Date | string) => {
 
 export const kFormatter = (num: number) => {
 	return Math.abs(num) > 999
-		? Math.sign(num) * Number((Math.abs(num) / 1000).toFixed(2)) + 'k'
+		? Math.abs(num) > 9999
+			? Math.sign(num) * Number((Math.abs(num) / 1000).toFixed(0)) + 'k'
+			: Math.sign(num) * Number((Math.abs(num) / 1000).toFixed(1)) + 'k'
 		: Math.sign(num) * Math.abs(num);
 };
