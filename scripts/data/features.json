@@ -1,0 +1,62 @@
+[
+    {
+        "id": "nxb33cvgmoqq9i3",
+        "name": "Board Games",
+        "description": "",
+        "created_at": "2023-09-16T17:24:27Z"
+    },
+    {
+        "id": "dmzdcb27mrxgesr",
+        "name": "Smoking Area",
+        "description": "",
+        "created_at": "2023-09-16T17:24:27Z"
+    },
+    {
+        "id": "vw977f1bqcw01sv",
+        "name": "Beer Garden",
+        "description": "",
+        "created_at": "2023-09-16T17:24:27Z"
+    },
+    {
+        "id": "b1aq85usb6v156b",
+        "name": "Live Music",
+        "description": "",
+        "created_at": "2023-09-16T17:24:27Z"
+    },
+    {
+        "id": "mz76rmpa1ize2z8",
+        "name": "Food",
+        "description": "",
+        "created_at": "2023-09-16T17:24:27Z"
+    },
+    {
+        "id": "wg883yjzxw8m773",
+        "name": "Pool Tables",
+        "description": "",
+        "created_at": "2023-09-22T14:09:07Z"
+    },
+    {
+        "id": "z1z1z1z1z1z1z1z",
+        "name": "Darts",
+        "description": "",
+        "created_at": "2024-04-17T00:00:00Z"
+    },
+    {
+        "id": "y2y2y2y2y2y2y2y",
+        "name": "Karaoke",
+        "description": "",
+        "created_at": "2024-04-17T00:00:00Z"
+    },
+    {
+        "id": "x3x3x3x3x3x3x3",
+        "name": "Sports TV",
+        "description": "",
+        "created_at": "2024-04-17T00:00:00Z"
+    },
+    {
+        "id": "w4w4w4w4w4w4w4w",
+        "name": "WiFi",
+        "description": "",
+        "created_at": "2024-04-17T00:00:00Z"
+    }
+]

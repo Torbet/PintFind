@@ -1,0 +1,82 @@
+<script lang="ts">
+	import type { PageServerData } from './$types';
+	import Review from '$lib/components/Review.svelte';
+
+	export let data: PageServerData;
+	let { counts, latestReviews } = data;
+	let { drinkCount, placeCount, reviewCount } = counts;
+</script>
+
+<svelte:head>
+	<title>Discover the Perfect Pint | PintFind</title>
+	<meta name="description" content="Explore, Compare and Enjoy Local Bars & Brews" />
+	<meta property="og:title" content="Discover the Perfect Pint" />
+	<meta property="og:description" content="Explore, Compare and Enjoy Local Bars & Brews" />
+	<meta property="og:image" content="/logo.png" />
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="PintFind" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:url" content={import.meta.url} />
+</svelte:head>
+
+<section
+	class="mx-auto flex h-full min-h-dvh w-full max-w-2xl flex-col items-center justify-center gap-6 text-center"
+>
+	<h1 class="text-6xl font-semibold tracking-tight">
+		Discover the <span
+			class="font-bold underline decoration-primary decoration-dashed decoration-8 underline-offset-4"
+			>Perfect Pint</span
+		>
+	</h1>
+
+	<p class="text-3xl font-semibold text-gray-500">Explore, Compare and Enjoy Local Bars & Brews</p>
+
+	<div class="flex w-full justify-around">
+		<div class="flex flex-col items-center">
+			<span class="text-4xl font-bold">{drinkCount.toLocaleString()}</span>
+			<span class="text-xl font-semibold text-gray-500">Pints</span>
+		</div>
+		<div class="flex flex-col items-center">
+			<span class="text-4xl font-bold">{placeCount.toLocaleString()}</span>
+			<span class="text-xl font-semibold text-gray-500">Pubs & Bars</span>
+		</div>
+		<div class="flex flex-col items-center">
+			<span class="text-4xl font-bold">{reviewCount.toLocaleString()}</span>
+			<span class="text-xl font-semibold text-gray-500">Reviews</span>
+		</div>
+	</div>
+
+	<a href="/search" class="btn btn-primary w-full text-xl">
+		Get Started
+		<svg
+			class="animate-pulse"
+			width="24"
+			height="24"
+			xmlns="http://www.w3.org/2000/svg"
+			fill="none"
+			viewBox="0 0 24 24"
+			stroke-width="3"
+			stroke="currentColor"
+		>
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5"
+			/>
+		</svg>
+	</a>
+</section>
+
+<div class="divider"></div>
+
+<div class="flex flex-col gap-4">
+	<h2 class="text-xl font-bold">Latest Reviews</h2>
+
+	<div class="carousel gap-2">
+		{#each latestReviews as review}
+			<div class="carousel-item w-4/5 lg:w-2/5">
+				<Review {review} />
+			</div>
+		{/each}
+	</div>
+</div>
