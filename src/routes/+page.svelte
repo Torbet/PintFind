@@ -74,7 +74,7 @@
 <div class="flex flex-col gap-4">
 	<h2 class="text-xl font-bold">Latest Reviews</h2>
 
-	<div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+	<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2">
 		{#each latestReviews as review}
 			<Review {review} />
 		{/each}

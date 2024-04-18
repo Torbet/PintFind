@@ -145,7 +145,7 @@
 	{:else}
 		<div bind:this={mapContainer} class="mb-6 h-56 w-full rounded-box lg:h-96" />
 
-		<div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 			{#each results as place (place.id)}
 				<PlaceCard {place} />
 			{/each}
