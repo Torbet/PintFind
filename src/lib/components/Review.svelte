@@ -31,7 +31,7 @@
 				{#if user.avatar}
 					<img src={user.avatar} alt={user.username} width="28" height="28" />
 				{:else}
-					<span class="text-xs">{user.username}</span>
+					<span class="text-xs">{user.username[0].toUpperCase()}</span>
 				{/if}
 			</div>
 		</div>

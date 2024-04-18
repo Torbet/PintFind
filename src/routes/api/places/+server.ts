@@ -34,6 +34,7 @@ export const GET: RequestHandler = async ({ locals, url }) => {
 		access_token: MAPBOX_TOKEN,
 		types: 'poi',
 		language: 'en',
+		poi_category: 'bar,pub,gastropub,restaurant,hotel,hotel_bar,social_club,nightclub',
 		limit: String(5 - existingResults.length)
 	});
 
@@ -46,6 +47,7 @@ export const GET: RequestHandler = async ({ locals, url }) => {
 			const { properties } = feature;
 			const { name, mapbox_id, context, coordinates, external_ids, metadata } = properties;
 			const { address, postcode, place, country } = context;
+			if (!address?.name || !postcode?.name || !place?.name || !country?.name) return null;
 			const { phone, website, photos, open_hours } = metadata;
 
 			return {
@@ -65,7 +67,7 @@ export const GET: RequestHandler = async ({ locals, url }) => {
 				openingHours: formatOpeningHours(open_hours?.periods)
 			};
 		})
-		.filter((result: any) => result.street && result.country);
+		.filter(Boolean);
 
 	if (results.length === 0) return json(existingResults);
 
