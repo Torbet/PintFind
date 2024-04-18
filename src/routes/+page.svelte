@@ -22,7 +22,7 @@
 </svelte:head>
 
 <section
-	class="mx-auto flex h-full min-h-lvh w-full max-w-2xl flex-col items-center justify-center gap-6 text-center"
+	class="mx-auto flex h-full min-h-svh w-full max-w-2xl flex-col items-center justify-center gap-6 text-center"
 >
 	<h1 class="text-6xl font-semibold tracking-tight">
 		Discover the <span
