@@ -62,7 +62,7 @@ const getLatestReviews = async (placeId: string): Promise<ReviewWithData[]> => {
 		where: (reviews, { and, eq, isNotNull }) =>
 			and(eq(reviews.placeId, placeId), isNotNull(reviews.drinkId)),
 		orderBy: (reviews, { desc }) => desc(reviews.createdAt),
-		limit: 5,
+		limit: 6,
 		with: {
 			user: true,
 			place: true,
