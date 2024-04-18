@@ -10,20 +10,20 @@ export const GET: RequestHandler = async ({ locals, url }) => {
 	const { user } = locals;
 	if (!user) return error(403, 'Forbidden');
 
-	let query = url.searchParams.get('q');
+	const query = url.searchParams.get('q');
 	if (!query) return error(400, 'Bad Request');
-	query = `%${query.replace(/\s+/g, '%')}%`;
+	const likeQuery = `%${query.replace(/\s+/g, '%')}%`;
 
 	const existingResults = await db
 		.select()
 		.from(places)
 		.where(
 			or(
-				sql`REPLACE(${places.name}, "'", "") LIKE ${query}`,
-				sql`REPLACE(${places.street}, "'", "") LIKE ${query}`,
-				sql`REPLACE(${places.city}, "'", "") LIKE ${query}`,
-				sql`REPLACE(${places.country}, "'", "") LIKE ${query}`,
-				sql`REPLACE(CONCAT(${places.name}, ${places.city}), "'", "") LIKE ${query}`
+				sql`REPLACE(${places.name}, "'", "") LIKE ${likeQuery}`,
+				sql`REPLACE(${places.street}, "'", "") LIKE ${likeQuery}`,
+				sql`REPLACE(${places.city}, "'", "") LIKE ${likeQuery}`,
+				sql`REPLACE(${places.country}, "'", "") LIKE ${likeQuery}`,
+				sql`REPLACE(CONCAT(${places.name}, ${places.city}), "'", "") LIKE ${likeQuery}`
 			)
 		)
 		.limit(5);
