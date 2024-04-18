@@ -73,9 +73,9 @@
 
 <div class="divider"></div>
 
-<h2 class="mb-4 text-xl font-bold">Trending Places</h2>
+<h2 class="text-xl font-bold mb-4">Trending Places</h2>
 
-<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 	{#each trendingPlaces as place}
 		<PlaceCard {place} />
 	{/each}
@@ -83,7 +83,7 @@
 
 <div class="divider"></div>
 
-<h2 class="mb-4 text-xl font-bold">Latest Reviews</h2>
+<h2 class="text-xl font-bold mb-4">Latest Reviews</h2>
 
 <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2">
 	{#each latestReviews as review}
