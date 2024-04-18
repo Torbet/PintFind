@@ -44,7 +44,7 @@
 	<p class="line-clamp-1 font-bold">{drink.name} at {place.name}</p>
 	<div class="flex items-center gap-2">
 		<Rating {rating} size={24} />
-		<span class="badge badge-outline text-gray-700">{currencySymbol}{price}</span>
+		<span class="badge badge-outline text-gray-700">{currencySymbol}{price?.toFixed(2)}</span>
 		{#if studentDiscount}
 			<span class="badge badge-outline text-gray-700">
 				<svg
