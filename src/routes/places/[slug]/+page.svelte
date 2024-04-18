@@ -265,9 +265,9 @@
 		{/if}
 	</div>
 
-	<div class="carousel gap-2">
+	<div class="flex flex-col gap-2 lg:carousel">
 		{#each latestReviews as review}
-			<div class="carousel-item w-4/5 lg:w-3/5">
+			<div class="w-full lg:carousel-item lg:w-3/5">
 				<Review {review} />
 			</div>
 		{/each}
