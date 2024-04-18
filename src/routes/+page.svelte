@@ -25,7 +25,7 @@
 >
 	<h1 class="text-6xl font-semibold tracking-tight">
 		Discover the <span
-			class="font-bold underline decoration-primary decoration-dashed decoration-8 underline-offset-4"
+			class="font-bold underline decoration-primary decoration-wavy decoration-8 underline-offset-8"
 			>Perfect Pint</span
 		>
 	</h1>
