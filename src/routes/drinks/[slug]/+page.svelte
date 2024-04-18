@@ -115,11 +115,9 @@
 
 	<div class="divider"></div>
 
-	<div class="carousel gap-2">
+	<div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
 		{#each latestReviews as review}
-			<div class="carousel-item w-4/5 lg:w-3/5">
-				<Review {review} />
-			</div>
+			<Review {review} />
 		{/each}
 	</div>
 </div>

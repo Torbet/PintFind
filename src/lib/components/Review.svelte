@@ -70,5 +70,7 @@
 			<span class="badge badge-success badge-outline badge-sm">{feature.name}</span>
 		{/each}
 	</div>
-	<p>{comment}</p>
+	{#if comment}
+		<p>{comment}</p>
+	{/if}
 </a>

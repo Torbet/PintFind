@@ -5,14 +5,20 @@ import { reviews, featuresToReviews } from '../src/lib/schema';
 
 const main = async () => {
 	reviewsData.map(async (review) => {
-		let { created_at, user_id, ...rest } = review;
+		let { created_at, user_id, student_discount, ...rest } = review;
 		let createdAt = new Date(created_at);
 		let ftors = featuresToReviewsData
 			.filter((ftor) => ftor.review_id === review.id)
 			.map((ftor) => ({ featureId: ftor.feature_id, reviewId: ftor.review_id }));
 		await db
 			.insert(reviews)
-			.values({ ...rest, createdAt, userId: user_id })
+			.values({
+				...rest,
+				createdAt,
+				userId: user_id,
+				currency: 'GBP',
+				studentDiscount: student_discount
+			})
 			.onConflictDoNothing();
 		if (ftors.length === 0) return;
 		await db.insert(featuresToReviews).values(ftors).onConflictDoNothing();
