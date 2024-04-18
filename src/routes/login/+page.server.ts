@@ -1,6 +1,7 @@
 import type { PageServerLoad, Actions } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
 import { Argon2id } from 'oslo/password';
+import { LegacyScrypt } from 'lucia';
 import { db } from '$lib/server/db';
 import { users } from '$lib/schema';
 import { lucia } from '$lib/server/auth';
@@ -35,12 +36,20 @@ export const actions: Actions = {
 		if (!user || !user.hashedPassword) {
 			return fail(400, { message: 'Invalid email or password.' });
 		}
-
-		const validPassword = await new Argon2id().verify(user.hashedPassword, password);
-		if (!validPassword) {
-			return fail(400, { message: 'Invalid email or password.' });
+		if (user.hashedPassword.startsWith('s2')) {
+			const validPassword = await new LegacyScrypt().verify(user.hashedPassword, password);
+			if (!validPassword) {
+				return fail(400, { message: 'Invalid email or password.' });
+			} else {
+				const hashedPassword = await new Argon2id().hash(password);
+				await db.update(users).set({ hashedPassword }).where(eq(users.id, user.id));
+			}
+		} else {
+			const validPassword = await new Argon2id().verify(user.hashedPassword, password);
+			if (!validPassword) {
+				return fail(400, { message: 'Invalid email or password.' });
+			}
 		}
-
 		const session = await lucia.createSession(user.id, {});
 		const sessionCookie = lucia.createSessionCookie(session.id);
 		cookies.set(sessionCookie.name, sessionCookie.value, {
