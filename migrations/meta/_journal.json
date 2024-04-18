@@ -1,13 +1,13 @@
 {
-  "version": "5",
-  "dialect": "sqlite",
-  "entries": [
-    {
-      "idx": 0,
-      "version": "5",
-      "when": 1713446573838,
-      "tag": "0000_numerous_captain_cross",
-      "breakpoints": true
-    }
-  ]
+	"version": "5",
+	"dialect": "sqlite",
+	"entries": [
+		{
+			"idx": 0,
+			"version": "5",
+			"when": 1713446573838,
+			"tag": "0000_numerous_captain_cross",
+			"breakpoints": true
+		}
+	]
 }
