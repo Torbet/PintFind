@@ -44,20 +44,7 @@ export const load: PageServerLoad = async ({ url, request }) => {
 						)
 					: undefined,
 				featureIds ? inArray(features.id, featureIds) : undefined,
-				!query && latitude && longitude
-					? and(
-							between(
-								places.latitude,
-								latitude - coorinateTolerance,
-								latitude + coorinateTolerance
-							),
-							between(
-								places.longitude,
-								longitude - coorinateTolerance,
-								longitude + coorinateTolerance
-							)
-						)
-					: undefined
+				!query && !featureIds && !rating && !price ? eq(places.city, 'Edinburgh') : undefined
 			)
 		)
 		.having(({ avgRating, avgPrice }) =>

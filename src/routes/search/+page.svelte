@@ -55,7 +55,7 @@
 			container: mapContainer,
 			style: 'mapbox://styles/mapbox/streets-v11',
 			center: [-3.188267, 55.953251],
-			zoom: 10
+			zoom: 12
 		});
 	});
 
