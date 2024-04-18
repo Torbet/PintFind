@@ -30,7 +30,7 @@ export const load: PageServerLoad = async ({ url, request }) => {
 		.leftJoin(featuresToReviews, eq(featuresToReviews.reviewId, reviews.id))
 		.leftJoin(features, eq(features.id, featuresToReviews.featureId))
 		.groupBy(places.id)
-		.limit(5)
+		.limit(6)
 		.orderBy(desc(sql`COUNT(${reviews.id})`), desc(places.image))
 		.where(
 			and(
