@@ -27,7 +27,7 @@
 >
 	<div class="flex gap-2">
 		<div class="avatar placeholder">
-			<div class="w-12 rounded-full bg-neutral text-neutral-content">
+			<div class="w-12 h-12 rounded-full bg-neutral text-neutral-content">
 				{#if user.avatar}
 					<img src={user.avatar} alt={user.username} width="28" height="28" />
 				{:else}
