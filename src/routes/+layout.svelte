@@ -189,7 +189,6 @@
 					Review
 				</a>
 			</li>
-			<li><a href="/">link</a></li>
 			{#if user}
 				<li class="mt-auto"><a href="/logout" class="btn btn-outline btn-error">Logout</a></li>
 			{/if}
