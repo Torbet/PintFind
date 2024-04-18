@@ -25,9 +25,9 @@
 
 	<div class="mx-auto flex items-center gap-2">
 		<div class="avatar placeholder">
-			<div class="w-20 rounded-full bg-neutral text-neutral-content">
+			<div class="w-20 h-20 rounded-full bg-neutral text-neutral-content">
 				{#if avatar}
-					<img src={avatar} alt={username} width="80" height="80" />
+					<img src={avatar} alt={username} width="40" height="40" />
 				{:else}
 					<span class="text-2xl font-semibold">{username[0].toUpperCase()}</span>
 				{/if}
