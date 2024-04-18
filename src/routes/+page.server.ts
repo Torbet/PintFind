@@ -1,7 +1,7 @@
 import type { PageServerLoad } from './$types';
 import { db } from '$lib/server/db';
-import { places, drinks, reviews } from '$lib/schema';
-import { getTableColumns, count, eq, sql, isNotNull } from 'drizzle-orm';
+import { places, reviews } from '$lib/schema';
+import { getTableColumns, count, eq, sql, isNotNull, avg, desc } from 'drizzle-orm';
 
 export const load: PageServerLoad = async () => {
 	const counts = await getCounts();
@@ -54,7 +54,7 @@ const getTrendingPlaces = async () => {
 		.innerJoin(reviews, eq(reviews.placeId, places.id))
 		.where(isNotNull(places.image))
 		.groupBy(places.id)
-		.orderBy(sql`COUNT(${reviews.id})`, sql`AVG(${reviews.rating})`)
+		.orderBy(desc(count(reviews.id)), desc(avg(reviews.rating)))
 		.limit(6);
 
 	return results;
