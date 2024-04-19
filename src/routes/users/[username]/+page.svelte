@@ -8,7 +8,7 @@
 
 	export let data: PageServerData;
 	const { user, latestReviews, favouritePlaces, favouriteDrinks } = data;
-	const { username, avatar, createdAt } = user;
+	const { username, avatar, createdAt, reviewCount } = user;
 </script>
 
 <svelte:head>
@@ -16,7 +16,7 @@
 </svelte:head>
 
 <section class="flex flex-col gap-4">
-	<div class="mx-auto flex items-center gap-4">
+	<div class="mx-auto flex items-center gap-6">
 		<div class="avatar placeholder">
 			<div class="h-24 w-24 rounded-full bg-neutral text-neutral-content">
 				{#if avatar}
@@ -26,9 +26,10 @@
 				{/if}
 			</div>
 		</div>
-		<div class="flex flex-col">
+		<div class="flex flex-col gap-1">
 			<span class="text-3xl font-bold">{username}</span>
-			<span class="text-xl text-gray-500">Joined {formatDate(createdAt)}</span>
+			<span class="badge badge-outline badge-lg text-xl text-gray-500">{reviewCount} reviews</span>
+			<span class="text-gl text-gray-500">Joined {formatDate(createdAt)}</span>
 		</div>
 	</div>
 </section>

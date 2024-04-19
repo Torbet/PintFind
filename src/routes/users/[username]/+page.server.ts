@@ -6,7 +6,14 @@ import { sql, eq, getTableColumns, desc, avg, count } from 'drizzle-orm';
 
 export const load: PageServerLoad = async ({ params }) => {
 	const { username } = params;
-	const [user] = await db.select().from(users).where(eq(users.username, username));
+	const [user] = await db
+		.select({
+			...getTableColumns(users),
+			reviewCount: sql<number>`COUNT(${reviews.id})`
+		})
+		.from(users)
+		.where(eq(users.username, username))
+		.innerJoin(reviews, eq(users.id, reviews.userId));
 	if (!user) return error(404, 'User not found');
 
 	const latestReviews = await getLatestReviews(user.id);
