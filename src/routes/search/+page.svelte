@@ -79,7 +79,7 @@
 	<title>Search | PintFind</title>
 </svelte:head>
 
-<div class="mb-4 flex gap-2">
+<div class="mb-4 flex flex-wrap gap-2">
 	<label class="input input-bordered flex grow items-center gap-2">
 		<svg
 			width="24"
