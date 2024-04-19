@@ -24,7 +24,8 @@
 	}
 
 	const submit = async () => {
-		if (!place || !drink || !rating || !price) return;
+		if (!place || !drink || !rating || !price || !currency || !comment || comment.length < 3)
+			return;
 		await fetch('/api/reviews', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
@@ -83,7 +84,7 @@
 		</label>
 
 		<textarea
-			placeholder="Additional Comments..."
+			placeholder="Comments..."
 			bind:value={comment}
 			class="textarea textarea-bordered"
 			required
@@ -93,7 +94,7 @@
 			<button on:click={() => step--} class="btn btn-outline btn-primary grow">Back</button>
 			<button
 				on:click={submit}
-				disabled={!rating || !price || !comment}
+				disabled={!rating || !price || !comment || comment.length < 3}
 				class="btn btn-primary grow">Submit</button
 			>
 		</div>
