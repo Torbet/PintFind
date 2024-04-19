@@ -139,19 +139,23 @@
 	</button>
 </div>
 
-<div class="flex grow flex-col">
+<section class="flex grow flex-col gap-4">
 	{#if results.length === 0}
 		<span class="m-auto text-lg text-gray-500">No results found.</span>
 	{:else}
-		<div bind:this={mapContainer} class="mb-6 h-56 w-full rounded-box lg:h-96" />
+		<p class="text-right text-xs text-gray-500">Tap a place to see information.</p>
 
-		<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+		<div bind:this={mapContainer} class="h-56 w-full rounded-box lg:h-96" />
+
+		<div class="carousel carousel-center gap-4 md:grid md:grid-cols-2 lg:grid-cols-3">
 			{#each results as place (place.id)}
-				<PlaceCard {place} />
+				<div class="carousel-item w-5/6 md:w-full">
+					<PlaceCard {place} />
+				</div>
 			{/each}
 		</div>
 	{/if}
-</div>
+</section>
 
 <!-- MODALS -->
 

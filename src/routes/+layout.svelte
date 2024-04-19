@@ -78,7 +78,7 @@
 					{#if user}
 						<div class="dropdown dropdown-end">
 							<div tabindex="0" role="button" class="avatar placeholder btn btn-circle btn-ghost">
-								<div class="w-10 h-10 rounded-full bg-neutral text-neutral-content">
+								<div class="h-10 w-10 rounded-full bg-neutral text-neutral-content">
 									{#if user.avatar}
 										<img width="40" height="40" src={user.avatar} alt={user.username} />
 									{:else}
@@ -117,7 +117,7 @@
 			</div>
 		</nav>
 
-		<main class="container mb-6 flex grow flex-col">
+		<main class="container flex grow flex-col pb-12">
 			<slot />
 		</main>
 	</div>

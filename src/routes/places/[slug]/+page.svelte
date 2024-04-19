@@ -205,7 +205,7 @@
 
 <div class="divider"></div>
 
-<div class="flex flex-col gap-4">
+<section class="flex flex-col gap-4">
 	<h2 class="text-xl font-bold">Ratings & Reviews</h2>
 
 	{#if avgRating}
@@ -265,16 +265,18 @@
 		{/if}
 	</div>
 
-	<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2">
+	<div class="carousel carousel-center gap-4 md:grid md:grid-cols-2 lg:grid-cols-3">
 		{#each latestReviews as review}
-			<Review {review} />
+			<div class="carousel-item w-5/6 md:w-full">
+				<Review {review} />
+			</div>
 		{/each}
 	</div>
-</div>
+</section>
 
 <div class="divider"></div>
 
-<div class="flex flex-col gap-4">
+<section class="flex flex-col gap-4">
 	<h2 class="text-xl font-bold">Menu</h2>
 
 	<div class="overflow-x-auto">
@@ -300,4 +302,4 @@
 			</tbody>
 		</table>
 	</div>
-</div>
+</section>

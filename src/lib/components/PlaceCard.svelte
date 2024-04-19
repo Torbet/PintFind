@@ -19,7 +19,7 @@
 	let currencySymbol = getCurrencySymbol(currency || 'GBP');
 </script>
 
-<a href="/places/{slug}" class="rounded-box border hover:bg-base-200">
+<a href="/places/{slug}" class="grow rounded-box border hover:bg-base-200">
 	{#if image}
 		<img src={image} alt={name} class="h-48 w-full rounded-t-box object-cover" />
 	{/if}

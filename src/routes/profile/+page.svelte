@@ -25,7 +25,7 @@
 
 	<div class="mx-auto flex items-center gap-2">
 		<div class="avatar placeholder">
-			<div class="w-20 h-20 rounded-full bg-neutral text-neutral-content">
+			<div class="h-20 w-20 rounded-full bg-neutral text-neutral-content">
 				{#if avatar}
 					<img src={avatar} alt={username} width="40" height="40" />
 				{:else}
