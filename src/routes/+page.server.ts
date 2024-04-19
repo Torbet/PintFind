@@ -1,6 +1,6 @@
 import type { PageServerLoad } from './$types';
 import { db } from '$lib/server/db';
-import { places, reviews } from '$lib/schema';
+import { places, reviews, features, featuresToReviews } from '$lib/schema';
 import { getTableColumns, count, eq, sql, isNotNull, avg, desc } from 'drizzle-orm';
 
 export const load: PageServerLoad = async () => {
@@ -41,7 +41,7 @@ const getLatestReviews = async (): Promise<ReviewWithData[]> => {
 	});
 };
 
-const getTrendingPlaces = async () => {
+const getTrendingPlaces = async (): Promise<PlaceWithData[]> => {
 	const results = await db
 		.select({
 			...getTableColumns(places),
@@ -56,6 +56,25 @@ const getTrendingPlaces = async () => {
 		.groupBy(places.id)
 		.orderBy(desc(count(reviews.id)), desc(avg(reviews.rating)))
 		.limit(6);
+
+	return await Promise.all(
+		results.map(async (place) => {
+			const features = await getFeatures(place.id);
+			return { ...place, features };
+		})
+	);
+};
+
+const getFeatures = async (placeId: string): Promise<Feature[]> => {
+	const results = await db
+		.select({
+			...getTableColumns(features)
+		})
+		.from(reviews)
+		.where(eq(reviews.placeId, placeId))
+		.leftJoin(featuresToReviews, eq(reviews.id, featuresToReviews.reviewId))
+		.innerJoin(features, eq(features.id, featuresToReviews.featureId))
+		.groupBy(features.id);
 
 	return results;
 };

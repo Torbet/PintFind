@@ -25,6 +25,7 @@ declare global {
 		avgPrice: number;
 		currency: string?;
 		reviewCount: number;
+		features: Feature[];
 	};
 	type ReviewWithData = Review & { user: User; place: Place; drink: Drink; features: Feature[] };
 }

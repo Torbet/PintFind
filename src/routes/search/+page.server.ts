@@ -17,7 +17,7 @@ export const load: PageServerLoad = async ({ url, request }) => {
 	const latitude = Number(request.headers.get('x-vercel-ip-latitude')) || 55.9533;
 	const longitude = Number(request.headers.get('x-vercel-ip-longitude')) || -3.1883;
 
-	const results = await db
+	let results = await db
 		.select({
 			...getTableColumns(places),
 			avgRating: sql<number>`AVG(${reviews.rating})`,
@@ -55,5 +55,26 @@ export const load: PageServerLoad = async ({ url, request }) => {
 	const avgLat = results.reduce((acc, place) => acc + place.latitude, 0) / results.length;
 	const center = [avgLng, avgLat] as [number, number];
 
+	results = await Promise.all(
+		results.map(async (place) => {
+			const features = await getFeatures(place.id);
+			return { ...place, features };
+		})
+	);
+
 	return { results, MAPBOX_TOKEN, center };
+};
+
+const getFeatures = async (placeId: string): Promise<Feature[]> => {
+	const results = await db
+		.select({
+			...getTableColumns(features)
+		})
+		.from(reviews)
+		.where(eq(reviews.placeId, placeId))
+		.leftJoin(featuresToReviews, eq(reviews.id, featuresToReviews.reviewId))
+		.innerJoin(features, eq(features.id, featuresToReviews.featureId))
+		.groupBy(features.id);
+
+	return results;
 };

@@ -14,7 +14,8 @@
 		avgRating,
 		avgPrice,
 		reviewCount,
-		currency
+		currency,
+		features
 	} = place;
 	let currencySymbol = getCurrencySymbol(currency || 'GBP');
 </script>
@@ -56,6 +57,11 @@
 				{/if}
 			</div>
 		{/if}
+		<div class="flex flex-wrap gap-2">
+			{#each features as { name }}
+				<span class="badge badge-success badge-outline badge-sm">{name}</span>
+			{/each}
+		</div>
 		<span class="font-bold">{name}</span>
 		<span class="text-sm text-gray-500">{street}, {postcode}, {city}, {country}</span>
 	</div>
