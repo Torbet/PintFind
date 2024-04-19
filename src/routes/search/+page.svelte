@@ -143,7 +143,7 @@
 	{#if results.length === 0}
 		<span class="m-auto text-lg text-gray-500">No results found.</span>
 	{:else}
-		<p class="text-right text-xs text-gray-500">Tap a place to see information.</p>
+		<p class="text-xs text-gray-500">Tap a place to see information.</p>
 
 		<div bind:this={mapContainer} class="h-56 w-full rounded-box lg:h-96" />
 
