@@ -100,11 +100,10 @@ const getRatings = async (placeId: string): Promise<{ rating: number; count: num
 	return ratings.reverse() as { rating: number; count: number }[];
 };
 
-const getFeatures = async (placeId: string): Promise<{ feature: string; count: number }[]> => {
+const getFeatures = async (placeId: string): Promise<Feature[]> => {
 	const results = await db
 		.select({
-			feature: features.name,
-			count: count(featuresToReviews.reviewId)
+			...getTableColumns(features)
 		})
 		.from(reviews)
 		.where(eq(reviews.placeId, placeId))

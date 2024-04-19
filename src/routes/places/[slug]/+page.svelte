@@ -90,8 +90,8 @@
 			<p class="text-xl text-gray-500">{street}, {postcode} {city}, {country}</p>
 		</div>
 		<div class="flex flex-wrap gap-2">
-			{#each features as { feature, count }}
-				<span class="badge badge-success badge-outline badge-lg">{feature} ({count})</span>
+			{#each features as { name }}
+				<span class="badge badge-success badge-outline badge-lg">{name}</span>
 			{/each}
 		</div>
 		{#if phone || website}
