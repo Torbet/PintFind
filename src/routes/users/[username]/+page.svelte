@@ -1,0 +1,96 @@
+<script lang="ts">
+	import type { PageServerData } from './$types';
+	import Review from '$lib/components/Review.svelte';
+	import Rating from '$lib/components/Rating.svelte';
+	import PlaceCard from '$lib/components/PlaceCard.svelte';
+	import { formatDate, getCurrencySymbol } from '$lib/utils';
+	import { goto } from '$app/navigation';
+
+	export let data: PageServerData;
+	const { user, latestReviews, favouritePlaces, favouriteDrinks } = data;
+	const { username, avatar, createdAt } = user;
+</script>
+
+<svelte:head>
+	<title>{username} | PintFind</title>
+</svelte:head>
+
+<section class="flex flex-col gap-4">
+	<div class="mx-auto flex items-center gap-4">
+		<div class="avatar placeholder">
+			<div class="h-24 w-24 rounded-full bg-neutral text-neutral-content">
+				{#if avatar}
+					<img src={avatar} alt={username} width="40" height="40" />
+				{:else}
+					<span class="text-3xl">{username[0].toUpperCase()}</span>
+				{/if}
+			</div>
+		</div>
+		<div class="flex flex-col">
+			<span class="text-3xl font-bold">{username}</span>
+			<span class="text-xl text-gray-500">Joined {formatDate(createdAt)}</span>
+		</div>
+	</div>
+</section>
+
+<div class="divider"></div>
+
+<section class="flex flex-col gap-4">
+	<h2 class="text-xl font-bold">Latest Reviews</h2>
+
+	<div
+		class="bleed carousel carousel-center gap-4 pl-4 md:m-0 md:grid md:grid-cols-2 md:pl-0 lg:grid-cols-3"
+	>
+		{#each latestReviews as review}
+			<div class="carousel-item w-5/6 md:w-full">
+				<Review {review} />
+			</div>
+		{/each}
+	</div>
+</section>
+
+<div class="divider"></div>
+
+<section class="flex flex-col gap-4">
+	<h2 class="text-xl font-bold">Favourite Places</h2>
+
+	<div
+		class="bleed carousel carousel-center gap-4 pl-4 md:m-0 md:grid md:grid-cols-2 md:pl-0 lg:grid-cols-3"
+	>
+		{#each favouritePlaces as place}
+			<div class="carousel-item w-5/6 md:w-full">
+				<PlaceCard {place} />
+			</div>
+		{/each}
+	</div>
+</section>
+
+<div class="divider"></div>
+
+<section class=" container flex flex-col gap-4">
+	<h2 class="text-xl font-bold">Favourite Drinks</h2>
+
+	<div class="overflow-x-auto">
+		<table class="table">
+			<!-- head -->
+			<thead>
+				<tr>
+					<th>Pint</th>
+					<th>Rating</th>
+					<th>Price</th>
+					<th>Reviews</th>
+				</tr>
+			</thead>
+			<tbody>
+				{#each favouriteDrinks as { name, avgPrice, avgRating, reviewCount, slug, currency }}
+					<tr on:click={() => goto(`/drinks/${slug}`)} class="hover cursor-pointer">
+						<td class="font-bold">{name}</td>
+						<td><Rating rating={avgRating} size={20} /></td>
+						<td>{getCurrencySymbol(currency)}{avgPrice.toFixed(2)}</td>
+						<td>{reviewCount}</td>
+					</tr>
+				{/each}
+			</tbody>
+		</table>
+	</div>
+</section>

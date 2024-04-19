@@ -297,7 +297,7 @@
 					<tr on:click={() => goto(`/drinks/${slug}`)} class="hover cursor-pointer">
 						<td class="font-bold">{name}</td>
 						<td><Rating rating={avgRating} size={20} /></td>
-						<td>{currencySymbol}{avgPrice}</td>
+						<td>{currencySymbol}{avgPrice.toFixed(2)}</td>
 						<td>{reviewCount}</td>
 					</tr>
 				{/each}

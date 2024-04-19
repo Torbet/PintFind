@@ -25,7 +25,7 @@
 	href="/places/{place.slug}"
 	class="flex grow flex-col gap-2 rounded-box border p-6 hover:bg-base-200"
 >
-	<div class="flex gap-2">
+	<a href="/users/{user.username}" class="flex gap-2">
 		<div class="avatar placeholder">
 			<div class="h-12 w-12 rounded-full bg-neutral text-neutral-content">
 				{#if user.avatar}
@@ -40,7 +40,7 @@
 			<span class="text-sm text-gray-500">Joined {formatDate(user.createdAt)}</span>
 		</div>
 		<span class="ml-auto text-sm text-gray-500">{daysAgoString}</span>
-	</div>
+	</a>
 	<p class="line-clamp-1 font-bold">{drink.name} at {place.name}</p>
 	<div class="flex items-center gap-2">
 		<Rating {rating} size={24} />
