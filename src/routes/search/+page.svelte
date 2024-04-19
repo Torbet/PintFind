@@ -148,10 +148,10 @@
 		<div bind:this={mapContainer} class="h-56 w-full rounded-box lg:h-96" />
 
 		<div
-			class="bleed carousel carousel-center gap-4 pl-4 md:m-0 md:grid md:grid-cols-2 md:pl-0 lg:grid-cols-3"
+			class="bleed carousel carousel-center gap-4 px-4 md:m-0 md:grid md:grid-cols-2 md:pl-0 lg:grid-cols-3"
 		>
 			{#each results as place (place.id)}
-				<div class="carousel-item w-5/6 md:w-full">
+				<div class="carousel-item w-[95%] md:w-full">
 					<PlaceCard {place} />
 				</div>
 			{/each}
