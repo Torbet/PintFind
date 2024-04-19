@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { LayoutServerData } from './$types';
-	import 'tailwindcss/tailwind.css';
+	import '$lib/global.css';
 	import { afterNavigate } from '$app/navigation';
 
 	export let data: LayoutServerData;
