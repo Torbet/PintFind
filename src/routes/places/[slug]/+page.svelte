@@ -190,13 +190,15 @@
 			</div>
 		{/if}
 	</div>
-	<img
-		width="auto"
-		height="auto"
-		src={image}
-		alt={name}
-		class="w-full flex-1 rounded-box lg:w-1/2"
-	/>
+	{#if image}
+		<img
+			width="auto"
+			height="auto"
+			src={image}
+			alt={name}
+			class="w-full flex-1 rounded-box lg:w-1/2"
+		/>
+	{/if}
 </div>
 
 <div class="divider"></div>
