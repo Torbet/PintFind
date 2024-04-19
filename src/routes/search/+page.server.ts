@@ -14,10 +14,22 @@ export const load: PageServerLoad = async ({ url, request }) => {
 	const price = Number(url.searchParams.get('p'));
 	const featureIds = url.searchParams.get('f')?.split(',');
 
-	const latitude = Number(request.headers.get('x-vercel-ip-latitude')) || 55.9533;
-	const longitude = Number(request.headers.get('x-vercel-ip-longitude')) || -3.1883;
+	const results = await getResults(query, featureIds, rating, price);
 
-	let results = await db
+	const avgLng = results.reduce((acc, place) => acc + place.longitude, 0) / results.length;
+	const avgLat = results.reduce((acc, place) => acc + place.latitude, 0) / results.length;
+	const center = [avgLng, avgLat] as [number, number];
+
+	return { results, MAPBOX_TOKEN, center };
+};
+
+const getResults = async (
+	query: string | undefined,
+	featureIds: string[] | undefined,
+	rating: number | undefined,
+	price: number | undefined
+): Promise<PlaceWithData[]> => {
+	const results = await db
 		.select({
 			...getTableColumns(places),
 			avgRating: sql<number>`AVG(${reviews.rating})`,
@@ -51,18 +63,12 @@ export const load: PageServerLoad = async ({ url, request }) => {
 			and(rating ? gte(avgRating, rating) : undefined, price ? lte(avgPrice, price) : undefined)
 		);
 
-	const avgLng = results.reduce((acc, place) => acc + place.longitude, 0) / results.length;
-	const avgLat = results.reduce((acc, place) => acc + place.latitude, 0) / results.length;
-	const center = [avgLng, avgLat] as [number, number];
-
-	results = await Promise.all(
+	return await Promise.all(
 		results.map(async (place) => {
 			const features = await getFeatures(place.id);
 			return { ...place, features };
 		})
 	);
-
-	return { results, MAPBOX_TOKEN, center };
 };
 
 const getFeatures = async (placeId: string): Promise<Feature[]> => {

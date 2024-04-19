@@ -69,12 +69,12 @@
 	<title>{name} | PintFind</title>
 	<meta
 		name="description"
-		content="{name} is a bar in {city}, {country} with {features.map((f) => f.feature).join(', ')}"
+		content="{name} is a bar in {city}, {country} with {features.map((f) => f.name).join(', ')}"
 	/>
 	<meta property="og:title" content={name} />
 	<meta
 		property="og:description"
-		content="{name} is a bar in {city}, {country} with {features.map((f) => f.feature).join(', ')}"
+		content="{name} is a bar in {city}, {country} with {features.map((f) => f.name).join(', ')}"
 	/>
 	<meta property="og:image" content={image} />
 	<meta property="og:type" content="article" />
