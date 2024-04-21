@@ -71,6 +71,6 @@
 		{/each}
 	</div>
 	{#if comment}
-		<p>{comment}</p>
+		<p class="line-clamp-2">{comment}</p>
 	{/if}
 </a>
