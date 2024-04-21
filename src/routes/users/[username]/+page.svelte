@@ -22,7 +22,7 @@
 				{#if avatar}
 					<img src={avatar} alt={username} width="40" height="40" />
 				{:else}
-					<span class="text-3xl">{username[0].toUpperCase()}</span>
+					<span class="text-3xl font-semibold">{username[0].toUpperCase()}</span>
 				{/if}
 			</div>
 		</div>
