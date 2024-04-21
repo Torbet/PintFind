@@ -1,8 +1,9 @@
 import type { PageServerLoad } from './$types';
 import { error } from '@sveltejs/kit';
 import { db } from '$lib/server/db';
-import { users, reviews, places, features, featuresToReviews, drinks, styles } from '$lib/schema';
+import { users, reviews, places, drinks, styles } from '$lib/schema';
 import { sql, eq, getTableColumns, desc, avg, count } from 'drizzle-orm';
+import { getFeatures } from '$lib/server/utils';
 
 export const load: PageServerLoad = async ({ params }) => {
 	const { username } = params;
@@ -68,21 +69,6 @@ const getFavouritePlaces = async (userId: string): Promise<PlaceWithData[]> => {
 			return { ...place, features };
 		})
 	);
-};
-
-const getFeatures = async (placeId: string): Promise<Feature[]> => {
-	const results = await db
-		.select({
-			...getTableColumns(features)
-		})
-		.from(reviews)
-		.where(eq(reviews.placeId, placeId))
-		.leftJoin(featuresToReviews, eq(reviews.id, featuresToReviews.reviewId))
-		.innerJoin(features, eq(features.id, featuresToReviews.featureId))
-		.groupBy(features.id)
-		.orderBy(desc(count(reviews)), desc(avg(reviews.rating)));
-
-	return results;
 };
 
 const getFavouriteDrinks = async (userId: string) => {

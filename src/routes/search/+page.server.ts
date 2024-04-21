@@ -2,9 +2,8 @@ import type { PageServerLoad } from './$types';
 import { MAPBOX_TOKEN } from '$env/static/private';
 import { db } from '$lib/server/db';
 import { places, reviews, featuresToReviews, features } from '$lib/schema';
-import { eq, and, gte, lte, getTableColumns, sql, inArray, desc, or, between } from 'drizzle-orm';
-
-let coorinateTolerance = 0.2;
+import { eq, and, gte, lte, getTableColumns, sql, inArray, desc, or } from 'drizzle-orm';
+import { getFeatures } from '$lib/server/utils';
 
 export const load: PageServerLoad = async ({ url, request }) => {
 	// get queries from url
@@ -69,18 +68,4 @@ const getResults = async (
 			return { ...place, features };
 		})
 	);
-};
-
-const getFeatures = async (placeId: string): Promise<Feature[]> => {
-	const results = await db
-		.select({
-			...getTableColumns(features)
-		})
-		.from(reviews)
-		.where(eq(reviews.placeId, placeId))
-		.leftJoin(featuresToReviews, eq(reviews.id, featuresToReviews.reviewId))
-		.innerJoin(features, eq(features.id, featuresToReviews.featureId))
-		.groupBy(features.id);
-
-	return results;
 };

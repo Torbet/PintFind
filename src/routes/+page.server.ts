@@ -1,7 +1,8 @@
 import type { PageServerLoad } from './$types';
 import { db } from '$lib/server/db';
-import { places, reviews, features, featuresToReviews } from '$lib/schema';
+import { places, reviews } from '$lib/schema';
 import { getTableColumns, count, eq, sql, isNotNull, avg, desc } from 'drizzle-orm';
+import { getFeatures } from '$lib/server/utils';
 
 export const load: PageServerLoad = async () => {
 	const counts = await getCounts();
@@ -63,18 +64,4 @@ const getTrendingPlaces = async (): Promise<PlaceWithData[]> => {
 			return { ...place, features };
 		})
 	);
-};
-
-const getFeatures = async (placeId: string): Promise<Feature[]> => {
-	const results = await db
-		.select({
-			...getTableColumns(features)
-		})
-		.from(reviews)
-		.where(eq(reviews.placeId, placeId))
-		.leftJoin(featuresToReviews, eq(reviews.id, featuresToReviews.reviewId))
-		.innerJoin(features, eq(features.id, featuresToReviews.featureId))
-		.groupBy(features.id);
-
-	return results;
 };

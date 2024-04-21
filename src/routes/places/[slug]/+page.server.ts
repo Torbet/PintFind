@@ -2,8 +2,9 @@ import type { PageServerLoad } from './$types';
 import { MAPBOX_TOKEN } from '$env/static/private';
 import { error } from '@sveltejs/kit';
 import { db } from '$lib/server/db';
-import { places, reviews, featuresToReviews, features, drinks } from '$lib/schema';
+import { places, reviews, drinks } from '$lib/schema';
 import { eq, sql, getTableColumns, count, desc, and } from 'drizzle-orm';
+import { getFeatures } from '$lib/server/utils';
 
 export const load: PageServerLoad = async ({ params, locals }) => {
 	const { user } = locals;
@@ -98,18 +99,4 @@ const getRatings = async (placeId: string): Promise<{ rating: number; count: num
 	});
 
 	return ratings.reverse() as { rating: number; count: number }[];
-};
-
-const getFeatures = async (placeId: string): Promise<Feature[]> => {
-	const results = await db
-		.select({
-			...getTableColumns(features)
-		})
-		.from(reviews)
-		.where(eq(reviews.placeId, placeId))
-		.leftJoin(featuresToReviews, eq(reviews.id, featuresToReviews.reviewId))
-		.innerJoin(features, eq(features.id, featuresToReviews.featureId))
-		.groupBy(features.id);
-
-	return results;
 };
