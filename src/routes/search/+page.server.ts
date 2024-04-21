@@ -1,32 +1,30 @@
 import type { PageServerLoad } from './$types';
 import { MAPBOX_TOKEN } from '$env/static/private';
 import { db } from '$lib/server/db';
-import { places, reviews, featuresToReviews, features } from '$lib/schema';
-import { eq, and, gte, lte, getTableColumns, sql, inArray, desc, or } from 'drizzle-orm';
+import { getTableColumns, sql, eq, desc, count, and, or, gte, lte, inArray } from 'drizzle-orm';
+import { featuresToReviews, places, reviews } from '$lib/schema';
 import { getFeatures } from '$lib/server/utils';
 
-export const load: PageServerLoad = async ({ url, request }) => {
-	// get queries from url
-	const searchQuery = url.searchParams.get('q');
-	const query = searchQuery ? `%${searchQuery.replace(/\s+/g, '%')}%` : undefined;
-	const rating = Number(url.searchParams.get('r'));
-	const price = Number(url.searchParams.get('p'));
-	const featureIds = url.searchParams.get('f')?.split(',');
+export const load: PageServerLoad = async ({ url }) => {
+	const queryParam = url.searchParams.get('query') as string;
+	const query = queryParam ? `%${queryParam.replace(/\s+/g, '%')}%` : null;
+	const rating = url.searchParams.get('rating') as number | null;
+	const price = url.searchParams.get('price') as number | null;
+	const featureParams = url.searchParams.get('features') as string | null;
+	const features = featureParams ? featureParams.split(',') : null;
+	const offset = url.searchParams.get('offset') as number | null;
 
-	const results = await getResults(query, featureIds, rating, price);
+	const results = await getResults(query, rating, price, features, offset);
 
-	const avgLng = results.reduce((acc, place) => acc + place.longitude, 0) / results.length;
-	const avgLat = results.reduce((acc, place) => acc + place.latitude, 0) / results.length;
-	const center = [avgLng, avgLat] as [number, number];
-
-	return { results, MAPBOX_TOKEN, center };
+	return { results, MAPBOX_TOKEN };
 };
 
 const getResults = async (
-	query: string | undefined,
-	featureIds: string[] | undefined,
-	rating: number | undefined,
-	price: number | undefined
+	query: string | null,
+	rating: number | null,
+	price: number | null,
+	features: string[] | null,
+	offset: number | null = 0
 ): Promise<PlaceWithData[]> => {
 	const results = await db
 		.select({
@@ -37,12 +35,9 @@ const getResults = async (
 			reviewCount: sql<number>`COUNT(${reviews.id})`
 		})
 		.from(places)
-		.leftJoin(reviews, eq(reviews.placeId, places.id))
-		.leftJoin(featuresToReviews, eq(featuresToReviews.reviewId, reviews.id))
-		.leftJoin(features, eq(features.id, featuresToReviews.featureId))
+		.innerJoin(reviews, eq(places.id, reviews.placeId))
+		.leftJoin(featuresToReviews, eq(reviews.id, featuresToReviews.reviewId))
 		.groupBy(places.id)
-		.limit(12)
-		.orderBy(desc(sql`COUNT(${reviews.id})`), desc(places.image))
 		.where(
 			and(
 				query
@@ -54,13 +49,14 @@ const getResults = async (
 							sql`REPLACE(CONCAT(${places.name}, ${places.city}), "'", "") LIKE ${query}`
 						)
 					: undefined,
-				featureIds ? inArray(features.id, featureIds) : undefined,
-				!query && !featureIds && !rating && !price ? eq(places.city, 'Edinburgh') : undefined
+				features ? inArray(featuresToReviews.featureId, features) : undefined
 			)
 		)
 		.having(({ avgRating, avgPrice }) =>
 			and(rating ? gte(avgRating, rating) : undefined, price ? lte(avgPrice, price) : undefined)
-		);
+		)
+		.orderBy(desc(count(reviews.id)), desc(places.image))
+		.limit(12);
 
 	return await Promise.all(
 		results.map(async (place) => {

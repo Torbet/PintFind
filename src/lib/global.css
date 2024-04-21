@@ -16,3 +16,11 @@
 	margin-left: calc(50% - 50vw);
 	margin-right: calc(50% - 50vw);
 }
+
+.mapboxgl-ctrl {
+	display: none;
+}
+
+.mapboxgl-ctrl-bottom-left {
+	display: none;
+}

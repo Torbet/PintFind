@@ -1,55 +1,52 @@
 <script lang="ts">
 	import type { PageServerData } from './$types';
 	import PlaceCard from '$lib/components/PlaceCard.svelte';
-	import Rating from '$lib/components/Rating.svelte';
 	import InteractiveRating from '$lib/components/InteractiveRating.svelte';
 	import FeatureSelector from '$lib/components/FeatureSelector.svelte';
-	import { onMount } from 'svelte';
+	import Rating from '$lib/components/Rating.svelte';
 	import mapboxgl from 'mapbox-gl';
 	import 'mapbox-gl/dist/mapbox-gl.css';
-	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { browser } from '$app/environment';
+	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
 	import { getCurrencySymbol } from '$lib/utils';
 
 	export let data: PageServerData;
-	let { MAPBOX_TOKEN } = data;
-	$: ({ results, center } = data);
+	const { MAPBOX_TOKEN } = data;
+	$: results = data.results;
+	$: console.log(results);
 
-	let query: string | null = $page.url.searchParams.get('q') || null;
-	let rating: number | null = Number($page.url.searchParams.get('r')) || null;
-	let price: number = Number($page.url.searchParams.get('p')) || 10;
-	let features: string[] = [];
+	let showFilterModal = false;
 
-	let showFilterModal: boolean = false;
-	let showSelectedPlaceModal: boolean = false;
-	let selectedPlace: PlaceWithData | null = null;
+	let query: string | null = $page.url.searchParams.get('query') || null;
+	let rating: number | null = Number($page.url.searchParams.get('rating')) || null;
+	let price: number = Number($page.url.searchParams.get('price')) || 10;
+	let features: string[] = $page.url.searchParams.get('features')?.split(',') || [];
 
-	const search = async () => {
-		const params = new URLSearchParams();
-		if (query) params.set('q', query);
-		if (rating) params.set('r', rating.toString());
-		if (price) params.set('p', price.toString());
-		if (features.length) params.set('f', features.join(','));
+	const search = () => {
+		query ? $page.url.searchParams.set('query', query) : $page.url.searchParams.delete('query');
+		rating && $page.url.searchParams.set('rating', rating.toString());
+		price && $page.url.searchParams.set('price', price.toString());
+		features.length && $page.url.searchParams.set('features', features.join(','));
+		goto($page.url, { invalidateAll: true });
 		showFilterModal = false;
-		goto(`/search?${params.toString()}`);
 	};
 
-	const clearFilters = () => {
+	const clear = () => {
 		query = null;
 		rating = null;
 		price = 10;
 		features = [];
+		goto('/search', { invalidateAll: true });
 		showFilterModal = false;
-		goto('/search');
 	};
 
+	// Map
 	let map: mapboxgl.Map;
-	let markers: mapboxgl.Marker[] = [];
 	let mapContainer: HTMLDivElement;
 
 	onMount(() => {
-		if (map || !mapContainer) return;
+		if (map) return;
 		mapboxgl.accessToken = MAPBOX_TOKEN;
 		map = new mapboxgl.Map({
 			container: mapContainer,
@@ -59,8 +56,16 @@
 		});
 	});
 
-	$: if (browser && map && results) {
-		map.setCenter(center);
+	// Interactive Map
+	let showPlaceModal = false;
+	let selectedPlace: PlaceWithData | null = null;
+	let markers: mapboxgl.Marker[] = [];
+
+	$: if (map && results.length > 0) {
+		const avgLat = results.reduce((acc, place) => acc + place.latitude, 0) / results.length;
+		const avgLng = results.reduce((acc, place) => acc + place.longitude, 0) / results.length;
+		map.setCenter([avgLng, avgLat]);
+
 		markers.forEach((marker) => marker.remove());
 		markers = results.map((place) => {
 			const marker = new mapboxgl.Marker({ color: '#5356FF' })
@@ -68,7 +73,7 @@
 				.addTo(map);
 			marker.getElement().addEventListener('click', () => {
 				selectedPlace = place;
-				showSelectedPlaceModal = true;
+				showPlaceModal = true;
 			});
 			return marker;
 		});
@@ -79,7 +84,7 @@
 	<title>Search | PintFind</title>
 </svelte:head>
 
-<div class="mb-4 flex flex-wrap gap-2">
+<section class="mb-4 flex gap-2">
 	<label class="input input-bordered flex grow items-center gap-2">
 		<svg
 			width="24"
@@ -100,14 +105,14 @@
 		<input type="text" bind:value={query} placeholder="Search pubs & cities..." class="grow" />
 	</label>
 
-	<button on:click={() => (showFilterModal = true)} class="btn btn-outline btn-primary text-lg">
+	<button on:click={() => (showFilterModal = true)} class="btn btn-outline btn-primary">
 		<svg
 			width="24"
 			height="24"
 			xmlns="http://www.w3.org/2000/svg"
 			fill="none"
 			viewBox="0 0 24 24"
-			stroke-width="1.5"
+			stroke-width="2"
 			stroke="currentColor"
 		>
 			<path
@@ -116,17 +121,17 @@
 				d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75"
 			/>
 		</svg>
-		<span class="hidden lg:block">Filter</span>
+		<span>Filter</span>
 	</button>
 
-	<button on:click={search} class="btn btn-primary text-lg">
+	<button on:click={search} class="btn btn-primary">
 		<svg
 			width="24"
 			height="24"
 			xmlns="http://www.w3.org/2000/svg"
 			fill="none"
 			viewBox="0 0 24 24"
-			stroke-width="2.5"
+			stroke-width="2"
 			stroke="currentColor"
 		>
 			<path
@@ -135,20 +140,20 @@
 				d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
 			/>
 		</svg>
-		<span class="hidden lg:block">Search</span>
+		<span>Search</span>
 	</button>
-</div>
+</section>
 
 <section class="flex grow flex-col gap-4">
-	{#if results.length === 0}
-		<span class="m-auto text-lg text-gray-500">No results found.</span>
-	{:else}
-		<p class="text-xs text-gray-500">Tap a place to see information.</p>
+	<div
+		bind:this={mapContainer}
+		class="h-96 w-full rounded-box"
+		class:hidden={results.length === 0}
+	/>
 
-		<div bind:this={mapContainer} class="h-56 w-full rounded-box lg:h-96" />
-
+	{#if results.length > 0}
 		<div
-			class="bleed carousel carousel-center gap-4 px-4 md:m-0 md:grid md:grid-cols-2 md:pl-0 lg:grid-cols-3"
+			class="bleed carousel carousel-center gap-4 px-4 md:m-0 md:grid md:grid-cols-2 md:p-0 lg:grid-cols-3"
 		>
 			{#each results as place (place.id)}
 				<div class="carousel-item w-[95%] md:w-full">
@@ -156,27 +161,27 @@
 				</div>
 			{/each}
 		</div>
+	{:else}
+		<span class="m-auto text-lg text-gray-500">No results found.</span>
 	{/if}
 </section>
 
 <!-- MODALS -->
 
 <dialog class="modal" class:modal-open={showFilterModal}>
-	<div class="modal-box flex flex-col gap-6">
-		<h3 class="text-lg font-bold">Filter Results</h3>
+	<div class="modal-box flex flex-col gap-4">
+		<h3 class="text-lg font-bold">Filter</h3>
 
-		<InteractiveRating bind:rating center size={52} />
+		<InteractiveRating bind:rating center size={56} />
 
-		<div class="flex items-center gap-4">
-			<span class="text-lg font-bold">
-				£{price.toFixed(2)}
-			</span>
+		<div class="flex items-center gap-6">
+			<span class="font-semibold text-gray-500">£{price.toFixed(2)}</span>
 			<input
 				type="range"
-				min="0"
-				step="0.05"
-				max="10"
 				bind:value={price}
+				min="0"
+				max="10"
+				step="0.05"
 				class="range range-primary"
 			/>
 		</div>
@@ -184,21 +189,21 @@
 		<FeatureSelector bind:features />
 
 		<div class="flex gap-2">
-			<button on:click={clearFilters} class="btn btn-outline btn-primary grow">
+			<button on:click={clear} class="btn btn-outline btn-primary grow">
 				<svg
 					width="24"
 					height="24"
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"
 					viewBox="0 0 24 24"
-					stroke-width="2.5"
+					stroke-width="2"
 					stroke="currentColor"
 				>
 					<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
 				</svg>
+
 				Clear
 			</button>
-
 			<button on:click={search} class="btn btn-primary grow">
 				<svg
 					width="24"
@@ -206,7 +211,7 @@
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"
 					viewBox="0 0 24 24"
-					stroke-width="2.5"
+					stroke-width="2"
 					stroke="currentColor"
 				>
 					<path
@@ -215,90 +220,56 @@
 						d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
 					/>
 				</svg>
-				Search
+				<span>Search</span>
 			</button>
 		</div>
 	</div>
-	<button class="modal-backdrop" on:click={() => (showFilterModal = false)} />
+	<button on:click={() => (showFilterModal = false)} class="modal-backdrop"></button>
 </dialog>
 
 {#if selectedPlace}
-	<dialog class="modal" class:modal-open={showSelectedPlaceModal}>
-		<div class="modal-box flex flex-col gap-2">
+	<dialog class="modal" class:modal-open={showPlaceModal}>
+		<div class="modal-box flex flex-col gap-4">
 			<h3 class="text-lg font-bold">{selectedPlace.name}</h3>
-			<p class="text-gray-500">
+
+			<img src={selectedPlace.image} alt={selectedPlace.name} class="rounded-box" />
+
+			<p class="font-semibold text-gray-500">
 				{selectedPlace.street}, {selectedPlace.postcode}, {selectedPlace.city}, {selectedPlace.country}
 			</p>
 
-			{#if selectedPlace.image}
-				<img
-					src={selectedPlace.image}
-					alt={selectedPlace.name}
-					width="auto"
-					height="auto"
-					class="rounded-box"
-				/>
-			{/if}
-
-			<div class="flex items-center gap-2">
-				{#if selectedPlace.avgRating}
-					<Rating rating={selectedPlace.avgRating} size={32} />
-				{/if}
-
-				{#if selectedPlace.avgPrice && selectedPlace.currency}
-					<span class="badge badge-outline badge-lg"
-						>{getCurrencySymbol(selectedPlace.currency)}{selectedPlace.avgPrice.toFixed(2)}</span
-					>
-				{/if}
+			<div class="flex items-center gap-4">
+				<Rating rating={selectedPlace.avgPrice} size={32} />
+				<span class="badge badge-outline badge-lg">
+					{getCurrencySymbol(selectedPlace.currency)}{selectedPlace.avgPrice.toFixed(2)}
+				</span>
 			</div>
 
-			<div class="flex gap-2">
-				<button
-					on:click={() => {
-						selectedPlace = null;
-						showSelectedPlaceModal = false;
-					}}
-					class="btn btn-outline btn-primary grow"
+			<div class="flex flex-wrap gap-2">
+				{#each selectedPlace.features as feature}
+					<span class="badge badge-success badge-outline">{feature.name}</span>
+				{/each}
+			</div>
+
+			<a href="/places/{selectedPlace.slug}" class="btn btn-primary">
+				<svg
+					width="24"
+					height="24"
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="1.5"
+					stroke="currentColor"
 				>
-					<svg
-						width="24"
-						height="24"
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke-width="2.5"
-						stroke="currentColor"
-					>
-						<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-					</svg>
-					Close
-				</button>
-
-				<a href="/places/{selectedPlace.slug}" class="btn btn-primary grow">
-					<svg
-						width="24"
-						height="24"
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke-width="2"
-						stroke="currentColor"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-						/>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
-						/>
-					</svg>
-					Visit
-				</a>
-			</div>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
+					/>
+				</svg>
+				Visit
+			</a>
 		</div>
-		<button class="modal-backdrop" on:click={() => (showSelectedPlaceModal = false)} />
+		<button on:click={() => (showPlaceModal = false)} class="modal-backdrop"></button>
 	</dialog>
 {/if}
