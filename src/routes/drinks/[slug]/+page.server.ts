@@ -32,7 +32,7 @@ const getLatestReviews = async (drinkId: string): Promise<ReviewWithData[]> => {
 	const results = await db.query.reviews.findMany({
 		where: (reviews, { and, eq }) => and(eq(reviews.drinkId, drinkId)),
 		orderBy: (reviews, { desc }) => desc(reviews.createdAt),
-		limit: 5,
+		limit: 6,
 		with: {
 			user: true,
 			place: true,

@@ -36,7 +36,7 @@
 			{/if}
 			{#if avgPrice}
 				<span class="badge badge-outline badge-lg font-semibold text-gray-700"
-					>{currencySymbol}{avgPrice}</span
+					>{currencySymbol}{avgPrice.toFixed(2)}</span
 				>
 			{/if}
 			{#if reviewCount}
