@@ -19,7 +19,7 @@ export const GET: RequestHandler = async (request) => {
 							return `
                     <url>
                         <loc>https://www.pintfind.com/places/${place.slug}</loc>
-                        <lastmod>${new Date()}</lastmod>
+						<lastmod>${new Date().toISOString()}</lastmod>
                         <changefreq>monthly</changefreq>
                         <priority>0.8</priority>
                     </url>
