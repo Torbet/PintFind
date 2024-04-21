@@ -33,7 +33,6 @@ export const GET: RequestHandler = async ({ locals, url }) => {
 		q: query,
 		access_token: MAPBOX_TOKEN,
 		types: 'poi',
-		language: 'en',
 		poi_category: 'bar,pub,gastropub,restaurant,hotel,hotel_bar,social_club,nightclub',
 		limit: String(5 - existingResults.length)
 	});
@@ -73,7 +72,7 @@ export const GET: RequestHandler = async ({ locals, url }) => {
 
 	const newResults = await db.insert(places).values(results).onConflictDoNothing().returning();
 
-	return json(newResults.concat(existingResults));
+	return json(newResults.concat(existingResults).filter((r) => r.id));
 };
 
 type Period = { open: { day: number; time: string }; close: { day: number; time: string } };
