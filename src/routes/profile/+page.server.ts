@@ -30,8 +30,9 @@ export const actions: Actions = {
 						Body: (await avatar.arrayBuffer()) as Buffer
 					})
 				);
-				const objUrl = `https://cdn.pintfind.com/${Key.replaceAll('/', '%2F')}`;
-				const url = 'https://pintfind.com/cdn-cgi/image/width=120,format=auto/' + objUrl;
+				const url =
+					'https://cdn.pintfind.com/cdn-cgi/image/width=120,format=auto/' +
+					Key.replaceAll('/', '%2F');
 				await db.update(users).set({ avatar: url }).where(eq(users.id, user.id));
 			} else {
 				await db.update(users).set({ avatar: null }).where(eq(users.id, user.id));
