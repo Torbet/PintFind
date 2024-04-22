@@ -3,7 +3,7 @@ import { MAPBOX_TOKEN } from '$env/static/private';
 import { error } from '@sveltejs/kit';
 import { db } from '$lib/server/db';
 import { places, reviews, drinks } from '$lib/schema';
-import { eq, sql, getTableColumns, count, desc, and } from 'drizzle-orm';
+import { eq, sql, getTableColumns, count, desc, and, not } from 'drizzle-orm';
 import { getFeatures } from '$lib/server/utils';
 
 export const load: PageServerLoad = async ({ params, locals }) => {
@@ -35,8 +35,9 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 					.where(and(eq(reviews.placeId, place.id), eq(reviews.userId, user.id)))
 			)[0]
 		: null;
+	const relatedPlaces = await getRelatedPlaces(place.id);
 
-	return { place, features, ratings, latestReviews, menu, userReview, MAPBOX_TOKEN };
+	return { place, features, ratings, latestReviews, menu, userReview, relatedPlaces, MAPBOX_TOKEN };
 };
 
 const getMenu = async (placeId: string) => {
@@ -99,4 +100,26 @@ const getRatings = async (placeId: string): Promise<{ rating: number; count: num
 	});
 
 	return ratings.reverse() as { rating: number; count: number }[];
+};
+
+const getRelatedPlaces = async (placeId: string): Promise<PlaceWithData[]> => {
+	const sq = db.select().from(reviews).where(eq(reviews.placeId, placeId)).as('sq');
+	const results = await db
+		.select({
+			...getTableColumns(places),
+			avgRating: sql<number>`AVG(${reviews.rating})`,
+			avgPrice: sql<number>`AVG(${reviews.price})`,
+			reviewCount: sql<number>`COUNT(${reviews.id})`,
+			currency: reviews.currency
+		})
+		.from(sq)
+		.innerJoin(reviews, eq(reviews.userId, sq.userId))
+		.innerJoin(places, and(eq(places.id, reviews.placeId), not(eq(places.id, placeId))))
+		.groupBy(places.id)
+		.orderBy(desc(count(reviews.id)))
+		.limit(6);
+
+	return await Promise.all(
+		results.map(async (place) => ({ ...place, features: await getFeatures(place.id) }))
+	);
 };

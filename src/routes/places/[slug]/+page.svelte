@@ -3,6 +3,7 @@
 	import Rating from '$lib/components/Rating.svelte';
 	import InteractiveRating from '$lib/components/InteractiveRating.svelte';
 	import Review from '$lib/components/Review.svelte';
+	import PlaceCard from '$lib/components/PlaceCard.svelte';
 	import { formatDate, getCurrencySymbol } from '$lib/utils';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
@@ -10,7 +11,8 @@
 	import 'mapbox-gl/dist/mapbox-gl.css';
 
 	export let data: PageServerData & { user: User | null };
-	let { user, features, ratings, latestReviews, menu, userReview, MAPBOX_TOKEN } = data;
+	let { user, features, ratings, latestReviews, menu, userReview, relatedPlaces, MAPBOX_TOKEN } =
+		data;
 	$: ({ place } = data);
 	$: ({
 		name,
@@ -305,5 +307,21 @@
 				{/each}
 			</tbody>
 		</table>
+	</div>
+</section>
+
+<div class="divider"></div>
+
+<section class=" container flex flex-col gap-4">
+	<h2 class="text-xl font-bold">Related Places</h2>
+
+	<div
+		class="bleed carousel carousel-center gap-4 px-4 md:m-0 md:grid md:grid-cols-2 md:pl-0 lg:grid-cols-3"
+	>
+		{#each relatedPlaces as place (place.id)}
+			<div class="carousel-item w-[95%] md:w-full">
+				<PlaceCard {place} />
+			</div>
+		{/each}
 	</div>
 </section>
