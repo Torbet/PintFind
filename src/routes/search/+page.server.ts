@@ -5,9 +5,10 @@ import { getTableColumns, sql, eq, desc, count, and, or, gte, lte, inArray } fro
 import { featuresToReviews, places, reviews } from '$lib/schema';
 import { getFeatures } from '$lib/server/utils';
 
-export const load: PageServerLoad = async ({ url }) => {
+export const load: PageServerLoad = async ({ url, request }) => {
+	const city = request.headers.get('cf-ipcity') || 'Edinburgh';
 	const queryParam = url.searchParams.get('query') as string;
-	const query = queryParam ? `%${queryParam.replace(/\s+/g, '%')}%` : null;
+	const query = queryParam ? `%${queryParam.replace(/\s+/g, '%')}%` : city;
 	const rating = url.searchParams.get('rating') as number | null;
 	const price = url.searchParams.get('price') as number | null;
 	const featureParams = url.searchParams.get('features') as string | null;
