@@ -14,7 +14,7 @@
 	<input type="checkbox" id="sidebar" bind:checked={sidebar} class="drawer-toggle" />
 
 	<div class="drawer-content flex flex-col">
-		<nav class="navbar">
+		<nav class="navbar sticky top-0 bg-base-100 bg-opacity-85 backdrop-blur">
 			<div class="navbar-start">
 				<a href="/" class="btn btn-ghost text-xl">
 					<svg
