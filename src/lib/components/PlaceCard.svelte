@@ -22,7 +22,7 @@
 
 <a href="/places/{slug}" data-sveltekit-reload class="grow rounded-box border hover:bg-base-200">
 	{#if image}
-		<img src={image} alt={name} class="h-48 w-full rounded-t-box object-cover" />
+		<img src={image} alt={name} loading="lazy" class="h-48 w-full rounded-t-box object-cover" />
 	{/if}
 	<div class="flex flex-col gap-2 p-6">
 		{#if avgRating || avgPrice}

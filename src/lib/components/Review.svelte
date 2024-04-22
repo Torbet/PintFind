@@ -29,7 +29,7 @@
 		<div class="avatar placeholder">
 			<div class="h-12 w-12 rounded-full bg-neutral text-neutral-content">
 				{#if user.avatar}
-					<img src={user.avatar} alt={user.username} width="28" height="28" />
+					<img src={user.avatar} alt={user.username} width="28" height="28" loading="lazy" />
 				{:else}
 					<span class="text-lg font-semibold">{user.username[0].toUpperCase()}</span>
 				{/if}
