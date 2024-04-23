@@ -15,6 +15,8 @@ export const users = sqliteTable('users', {
 	hashedPassword: text('hashed_password'),
 
 	paying: integer('paying', { mode: 'boolean' }).default(false),
+	unsubscribed: integer('unsubscribed', { mode: 'boolean' }).default(false),
+
 	createdAt: integer('created_at', { mode: 'timestamp' })
 		.notNull()
 		.default(sql`(strftime('%s', 'now'))`)
