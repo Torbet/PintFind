@@ -110,13 +110,14 @@
 	</div>
 
 	<!-- Boost -->
-	<div class="flex flex-col gap-4 rounded-box border p-6">
+	<div class="flex flex-col gap-4 rounded-box border border-primary p-6">
 		<h2 class="text-2xl font-bold">Boost</h2>
 
 		<span class="text-lg text-gray-500">Stand Out as a Local Hotspot</span>
 
 		<div class="flex items-end">
-			<span class="text-4xl font-bold">£24.99</span>
+			<span class="mr-2 text-2xl font-semibold line-through">£39.99</span>
+			<span class="text-4xl font-bold text-primary">£24.99</span>
 			<span class="text-xl font-bold text-gray-600">/month</span>
 		</div>
 
