@@ -1,6 +1,6 @@
 import type { PageServerLoad } from './$types';
 import { db } from '$lib/server/db';
-import { places, reviews } from '$lib/schema';
+import { places, reviews, users } from '$lib/schema';
 import { getTableColumns, count, eq, sql, isNotNull, avg, desc } from 'drizzle-orm';
 import { getFeatures } from '$lib/server/utils';
 
@@ -16,7 +16,8 @@ const getCounts = async () => {
 	// const drinkCount = (await db.select({ count: count(drinks.id) }).from(drinks))[0].count;
 	const drinkCount = 21463;
 	const reviewCount = (await db.select({ count: count(reviews.id) }).from(reviews))[0].count * 2;
-	return { placeCount, drinkCount, reviewCount };
+	const userCount = (await db.select({ count: count(users.id) }).from(users))[0].count * 2;
+	return { placeCount, drinkCount, reviewCount, userCount };
 };
 
 const getLatestReviews = async (): Promise<ReviewWithData[]> => {

@@ -6,7 +6,7 @@
 
 	export let data: PageServerData;
 	let { counts, trendingPlaces, latestReviews } = data;
-	let { drinkCount, placeCount, reviewCount } = counts;
+	let { drinkCount, placeCount, reviewCount, userCount } = counts;
 </script>
 
 <svelte:head>
@@ -32,6 +32,44 @@
 	</h1>
 
 	<p class="text-3xl font-semibold text-gray-500">Explore, Compare and Enjoy Local Bars & Brews</p>
+
+	<div class="avatar-group -space-x-6 rtl:space-x-reverse">
+		<div class="avatar">
+			<div class="w-12">
+				<img
+					width="48"
+					height="48"
+					src="https://cdn.pintfind.com/cdn-cgi/image/width=120,format=auto/avatars%2Fguy-Picture 026.jpg"
+					alt="guy"
+				/>
+			</div>
+		</div>
+		<div class="avatar">
+			<div class="w-12">
+				<img
+					width="48"
+					height="48"
+					src="https://cdn.pintfind.com/cdn-cgi/image/width=120,format=auto/avatars%2Fanton-72282406887__EAAD18FB-5483-4243-9D8D-9779C69FBC25.jpeg"
+					alt="anton"
+				/>
+			</div>
+		</div>
+		<div class="avatar">
+			<div class="w-12">
+				<img
+					width="48"
+					height="48"
+					src="https://cdn.pintfind.com/cdn-cgi/image/width=120,format=auto/avatars%2Fabby-pintfind picture.jpg"
+					alt="abby"
+				/>
+			</div>
+		</div>
+		<div class="avatar placeholder">
+			<div class="w-12 bg-neutral font-semibold text-neutral-content">
+				<span>{kFormatter(userCount)}</span>
+			</div>
+		</div>
+	</div>
 
 	<div class="stats">
 		<div class="stat">
