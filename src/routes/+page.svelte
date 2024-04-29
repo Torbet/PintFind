@@ -2,6 +2,7 @@
 	import type { PageServerData } from './$types';
 	import PlaceCard from '$lib/components/PlaceCard.svelte';
 	import Review from '$lib/components/Review.svelte';
+	import Rating from '$lib/components/Rating.svelte';
 	import { kFormatter } from '$lib/utils';
 
 	export let data: PageServerData;
@@ -21,9 +22,7 @@
 	<meta property="og:url" content={import.meta.url} />
 </svelte:head>
 
-<section
-	class="mx-auto flex h-full min-h-svh w-full max-w-2xl flex-col items-center justify-center gap-6 text-center"
->
+<section class="mx-auto flex min-h-svh w-full max-w-2xl flex-col justify-center gap-6 text-center">
 	<h1 class="text-6xl font-semibold tracking-tight">
 		Discover the <span
 			class="font-bold underline decoration-primary decoration-wavy decoration-8 underline-offset-8"
@@ -32,44 +31,6 @@
 	</h1>
 
 	<p class="text-3xl font-semibold text-gray-500">Explore, Compare and Enjoy Local Bars & Brews</p>
-
-	<div class="avatar-group -space-x-6 rtl:space-x-reverse">
-		<div class="avatar">
-			<div class="w-12">
-				<img
-					width="48"
-					height="48"
-					src="https://cdn.pintfind.com/cdn-cgi/image/width=120,format=auto/avatars%2Fguy-Picture 026.jpg"
-					alt="guy"
-				/>
-			</div>
-		</div>
-		<div class="avatar">
-			<div class="w-12">
-				<img
-					width="48"
-					height="48"
-					src="https://cdn.pintfind.com/cdn-cgi/image/width=120,format=auto/avatars%2Fanton-72282406887__EAAD18FB-5483-4243-9D8D-9779C69FBC25.jpeg"
-					alt="anton"
-				/>
-			</div>
-		</div>
-		<div class="avatar">
-			<div class="w-12">
-				<img
-					width="48"
-					height="48"
-					src="https://cdn.pintfind.com/cdn-cgi/image/width=120,format=auto/avatars%2Fabby-pintfind picture.jpg"
-					alt="abby"
-				/>
-			</div>
-		</div>
-		<div class="avatar placeholder">
-			<div class="w-12 bg-neutral font-semibold text-neutral-content">
-				<span>{kFormatter(userCount)}</span>
-			</div>
-		</div>
-	</div>
 
 	<div class="stats">
 		<div class="stat">
@@ -107,6 +68,66 @@
 			/>
 		</svg>
 	</a>
+
+	<div class="flex flex-col items-center gap-1">
+		<div class="avatar-group -space-x-5 py-0 rtl:space-x-reverse">
+			<div class="avatar">
+				<div class="h-12 w-12">
+					<img
+						width="48"
+						height="48"
+						src="https://cdn.pintfind.com/cdn-cgi/image/width=120,format=auto/avatars%2Ffelixhoare-pac_ghost.png"
+						alt="felixhoare"
+					/>
+				</div>
+			</div>
+			<div class="avatar">
+				<div class="h-12 w-12">
+					<img
+						width="48"
+						height="48"
+						src="https://cdn.pintfind.com/cdn-cgi/image/width=120,format=auto/avatars%2Fanton-72282406887__EAAD18FB-5483-4243-9D8D-9779C69FBC25.jpeg"
+						alt="anton"
+					/>
+				</div>
+			</div>
+			<div class="avatar">
+				<div class="h-12 w-12">
+					<img
+						width="48"
+						height="48"
+						src="https://cdn.pintfind.com/cdn-cgi/image/width=120,format=auto/avatars%2Fabby-pintfind picture.jpg"
+						alt="abby"
+					/>
+				</div>
+			</div>
+			<div class="avatar">
+				<div class="h-12 w-12">
+					<img
+						width="48"
+						height="48"
+						src="https://cdn.pintfind.com/cdn-cgi/image/width=120,format=auto/avatars%2Fzea-IMG_6462.jpeg"
+						alt="zea"
+					/>
+				</div>
+			</div>
+			<div class="avatar">
+				<div class="h-12 w-12">
+					<img
+						width="48"
+						height="48"
+						src="https://cdn.pintfind.com/cdn-cgi/image/width=120,format=auto/avatars%2Fguy-Picture 026.jpg"
+						alt="guy"
+					/>
+				</div>
+			</div>
+		</div>
+
+		<Rating rating={5} size={28} />
+		<span class="font-semibold text-gray-500"
+			>Loved by <span class="font-bold">{userCount}</span> members</span
+		>
+	</div>
 </section>
 
 <section class="grid grid-cols-1 gap-4 md:grid-cols-3">
