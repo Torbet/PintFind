@@ -22,7 +22,7 @@
 	<meta property="og:url" content={import.meta.url} />
 </svelte:head>
 
-<section class="mx-auto flex min-h-svh w-full max-w-2xl flex-col justify-center gap-6 text-center">
+<section class="mx-auto flex h-svh max-w-2xl flex-col justify-center gap-6 text-center">
 	<h1 class="text-6xl font-semibold tracking-tight">
 		Discover the <span
 			class="font-bold underline decoration-primary decoration-wavy decoration-8 underline-offset-8"
