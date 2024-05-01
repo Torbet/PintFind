@@ -248,7 +248,7 @@
 		{:else}
 			<span class="text-gray-500">Tap to rate:</span>
 			<InteractiveRating bind:rating size={48} />
-			<a href="/review" class="btn btn-ghost">
+			<a href="/review?placeId={place.id}" class="btn btn-ghost">
 				<svg
 					width={18}
 					height={18}

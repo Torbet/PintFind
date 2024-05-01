@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { PageServerData } from './$types';
 	import PlaceSelector from '$lib/components/PlaceSelector.svelte';
 	import DrinkSelector from '$lib/components/DrinkSelector.svelte';
 	import InteractiveRating from '$lib/components/InteractiveRating.svelte';
@@ -6,10 +7,13 @@
 	import FeatureSelector from '$lib/components/FeatureSelector.svelte';
 	import { goto } from '$app/navigation';
 
-	const steps = ['Place', 'Drink', 'Review'];
-	let step: number = 0;
+	export let data: PageServerData;
+	let { place: initPlace } = data;
 
-	let place: Place | null = null;
+	const steps = ['Place', 'Drink', 'Review'];
+	let step: number = initPlace ? 1 : 0;
+
+	let place: Place | null = initPlace;
 	let drink: DrinkWithStyle | null = null;
 	let rating: number | null = null;
 	let price: number | null = null;
