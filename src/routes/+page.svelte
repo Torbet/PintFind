@@ -23,6 +23,25 @@
 </svelte:head>
 
 <section class="mx-auto flex h-svh max-w-2xl flex-col justify-center gap-6 text-center">
+	<a href="/leaderboard" class="badge badge-primary badge-outline mx-auto p-4">
+		🍻 Win a free pint by topping the leaderboard!
+		<svg
+			width="22"
+			height="22"
+			xmlns="http://www.w3.org/2000/svg"
+			fill="none"
+			viewBox="0 0 24 24"
+			stroke-width="2"
+			stroke="currentColor"
+			class="ml-2 animate-pulse"
+		>
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+			/>
+		</svg>
+	</a>
 	<h1 class="text-6xl font-semibold tracking-tight">
 		Discover the <span
 			class="font-bold underline decoration-primary decoration-wavy decoration-8 underline-offset-8"
