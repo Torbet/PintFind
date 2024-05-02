@@ -60,7 +60,7 @@ const getResults = async (
 			and(rating ? gte(avgRating, rating) : undefined, price ? lte(avgPrice, price) : undefined)
 		)
 		.orderBy(desc(count(reviews.id)), desc(places.image))
-		.limit(12);
+		.limit(24);
 
 	return await Promise.all(
 		results.map(async (place) => {
