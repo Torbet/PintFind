@@ -14,7 +14,7 @@
 	<input type="checkbox" id="sidebar" bind:checked={sidebar} class="drawer-toggle" />
 
 	<div class="drawer-content flex flex-col">
-		<nav class="navbar sticky top-0 bg-base-100 bg-opacity-85 backdrop-blur">
+		<nav class="navbar sticky top-0 z-10 bg-base-100 bg-opacity-85 backdrop-blur">
 			<div class="navbar-start">
 				<a href="/" class="btn btn-ghost text-xl">
 					<svg
@@ -122,7 +122,7 @@
 		</main>
 	</div>
 
-	<div class="drawer-side">
+	<div class="drawer-side z-20">
 		<label for="sidebar" aria-label="close sidebar" class="drawer-overlay"></label>
 
 		<ul class="menu min-h-full w-80 gap-2 bg-base-200 p-4">
