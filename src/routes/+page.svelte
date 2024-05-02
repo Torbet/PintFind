@@ -22,7 +22,7 @@
 	<meta property="og:url" content={import.meta.url} />
 </svelte:head>
 
-<section class="mx-auto flex h-svh max-w-2xl flex-col justify-center gap-6 text-center">
+<section class="mx-auto flex h-[90svh] max-w-2xl flex-col justify-center gap-6 text-center">
 	<a href="/leaderboard" class="badge badge-primary badge-outline mx-auto p-4">
 		🍻 Win a free pint by topping the leaderboard!
 		<svg
