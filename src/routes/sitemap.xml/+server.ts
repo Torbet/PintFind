@@ -18,7 +18,7 @@ export const GET: RequestHandler = async (request) => {
             ${placeResults.map((place) => {
 							return `
                     <url>
-                        <loc>https://www.pintfind.com/places/${place.slug}</loc>
+                        <loc>https://pintfind.com/places/${place.slug}</loc>
 						<lastmod>${new Date().toISOString()}</lastmod>
                         <changefreq>monthly</changefreq>
                         <priority>0.8</priority>
