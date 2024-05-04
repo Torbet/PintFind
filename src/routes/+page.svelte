@@ -84,7 +84,7 @@
 		{/await}
 	</div>
 
-	<a href="/search" class="btn btn-primary w-full text-xl">
+	<a href="/review" class="btn btn-primary w-full text-xl">
 		Get Started
 		<svg
 			class="animate-pulse"

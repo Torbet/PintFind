@@ -14,7 +14,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 };
 
 export const actions: Actions = {
-	default: async ({ request, cookies }) => {
+	default: async ({ request, cookies, url }) => {
 		const formData = await request.formData();
 		const email = formData.get('email');
 		const password = formData.get('password');
@@ -57,6 +57,7 @@ export const actions: Actions = {
 			...sessionCookie.attributes
 		});
 
-		return redirect(302, '/');
+		const redirectUrl = url.searchParams.get('redirect');
+		return redirect(302, redirectUrl || '/');
 	}
 };

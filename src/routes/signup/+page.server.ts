@@ -13,7 +13,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 };
 
 export const actions: Actions = {
-	default: async ({ request, cookies }) => {
+	default: async ({ request, cookies, url }) => {
 		const formData = await request.formData();
 		const username = formData.get('username');
 		const email = formData.get('email');
@@ -73,6 +73,7 @@ export const actions: Actions = {
 			return fail(500, { message: 'An unexpected error occurred.' });
 		}
 
-		return redirect(302, '/');
+		const redirectUrl = url.searchParams.get('redirect');
+		return redirect(302, redirectUrl || '/');
 	}
 };
