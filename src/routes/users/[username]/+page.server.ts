@@ -14,7 +14,7 @@ export const load: PageServerLoad = async ({ params }) => {
 		})
 		.from(users)
 		.where(eq(users.username, username))
-		.innerJoin(reviews, eq(users.id, reviews.userId));
+		.leftJoin(reviews, eq(users.id, reviews.userId));
 	if (!user) return error(404, 'User not found');
 
 	const latestReviews = await getLatestReviews(user.id);

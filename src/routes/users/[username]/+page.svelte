@@ -39,15 +39,19 @@
 <section class="flex flex-col gap-4">
 	<h2 class="text-xl font-bold">Latest Reviews</h2>
 
-	<div
-		class="bleed carousel carousel-center gap-4 px-4 md:m-0 md:grid md:grid-cols-2 md:pl-0 lg:grid-cols-3"
-	>
-		{#each latestReviews as review}
-			<div class="carousel-item w-[95%] md:w-full">
-				<Review {review} />
-			</div>
-		{/each}
-	</div>
+	{#if latestReviews.length === 0}
+		<p class="text-center font-semibold text-gray-500">No reviews yet</p>
+	{:else}
+		<div
+			class="bleed carousel carousel-center gap-4 px-4 md:m-0 md:grid md:grid-cols-2 md:pl-0 lg:grid-cols-3"
+		>
+			{#each latestReviews as review}
+				<div class="carousel-item w-[95%] md:w-full">
+					<Review {review} />
+				</div>
+			{/each}
+		</div>
+	{/if}
 </section>
 
 <div class="divider"></div>
@@ -55,15 +59,19 @@
 <section class="flex flex-col gap-4">
 	<h2 class="text-xl font-bold">Favourite Places</h2>
 
-	<div
-		class="bleed carousel carousel-center gap-4 px-4 md:m-0 md:grid md:grid-cols-2 md:pl-0 lg:grid-cols-3"
-	>
-		{#each favouritePlaces as place}
-			<div class="carousel-item w-[95%] md:w-full">
-				<PlaceCard {place} />
-			</div>
-		{/each}
-	</div>
+	{#if favouritePlaces.length === 0}
+		<p class="text-center font-semibold text-gray-500">No favourite places yet</p>
+	{:else}
+		<div
+			class="bleed carousel carousel-center gap-4 px-4 md:m-0 md:grid md:grid-cols-2 md:pl-0 lg:grid-cols-3"
+		>
+			{#each favouritePlaces as place}
+				<div class="carousel-item w-[95%] md:w-full">
+					<PlaceCard {place} />
+				</div>
+			{/each}
+		</div>
+	{/if}
 </section>
 
 <div class="divider"></div>
@@ -71,27 +79,31 @@
 <section class=" container flex flex-col gap-4">
 	<h2 class="text-xl font-bold">Favourite Drinks</h2>
 
-	<div class="overflow-x-auto">
-		<table class="table">
-			<!-- head -->
-			<thead>
-				<tr>
-					<th>Pint</th>
-					<th>Rating</th>
-					<th>Price</th>
-					<th>Reviews</th>
-				</tr>
-			</thead>
-			<tbody>
-				{#each favouriteDrinks as { name, avgPrice, avgRating, reviewCount, slug, currency }}
-					<tr on:click={() => goto(`/drinks/${slug}`)} class="hover cursor-pointer">
-						<td class="font-bold">{name}</td>
-						<td><Rating rating={avgRating} size={20} /></td>
-						<td>{getCurrencySymbol(currency)}{avgPrice.toFixed(2)}</td>
-						<td>{reviewCount}</td>
+	{#if favouriteDrinks.length === 0}
+		<p class="text-center font-semibold text-gray-500">No favourite drinks yet</p>
+	{:else}
+		<div class="overflow-x-auto">
+			<table class="table">
+				<!-- head -->
+				<thead>
+					<tr>
+						<th>Pint</th>
+						<th>Rating</th>
+						<th>Price</th>
+						<th>Reviews</th>
 					</tr>
-				{/each}
-			</tbody>
-		</table>
-	</div>
+				</thead>
+				<tbody>
+					{#each favouriteDrinks as { name, avgPrice, avgRating, reviewCount, slug, currency }}
+						<tr on:click={() => goto(`/drinks/${slug}`)} class="hover cursor-pointer">
+							<td class="font-bold">{name}</td>
+							<td><Rating rating={avgRating} size={20} /></td>
+							<td>{getCurrencySymbol(currency)}{avgPrice.toFixed(2)}</td>
+							<td>{reviewCount}</td>
+						</tr>
+					{/each}
+				</tbody>
+			</table>
+		</div>
+	{/if}
 </section>
