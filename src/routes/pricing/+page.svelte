@@ -2,6 +2,14 @@
 	<title>Pricing | PintFind</title>
 </svelte:head>
 
+<section class="mb-6 flex flex-col gap-4">
+	<h1 class="text-4xl font-bold">Reach More Beer Lovers with PintFind</h1>
+	<p class="text-lg text-gray-500">
+		With powerful listing and review features, our platform puts your establishment in front of beer
+		enthusiasts actively searching for their next great pint.
+	</p>
+</section>
+
 <section class="grid gap-4 lg:grid-cols-3">
 	<!-- Essential -->
 	<div class="flex flex-col gap-4 rounded-box border p-6">
@@ -106,7 +114,9 @@
 				Add opening hours & contact details
 			</li>
 		</ul>
-		<button class="btn btn-primary mt-auto">Get Started</button>
+		<a href="https://buy.stripe.com/8wM9Edcbv7dl1K8145" class="btn btn-primary mt-auto"
+			>Get Started</a
+		>
 	</div>
 
 	<!-- Boost -->
@@ -197,7 +207,9 @@
 				Display booking details
 			</li>
 		</ul>
-		<button class="btn btn-primary mt-auto">Get Started</button>
+		<a href="https://buy.stripe.com/5kA4jTb7reFN4Wk3cc" class="btn btn-primary mt-auto"
+			>Get Started</a
+		>
 	</div>
 
 	<!-- Enterprise -->
@@ -286,6 +298,10 @@
 				Advanced analtics and reporting
 			</li>
 		</ul>
-		<button class="btn btn-primary mt-auto">Get Started</button>
+		<a
+			href="mailto:guy@pintfind.com?subject=We Want PintFind Enterprise!"
+			target="_blank"
+			class="btn btn-primary mt-auto">Get Started</a
+		>
 	</div>
 </section>
