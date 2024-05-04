@@ -1,23 +1,23 @@
 import type { PageServerLoad } from './$types';
 import { db } from '$lib/server/db';
-import { places, reviews, users } from '$lib/schema';
+import { places, reviews } from '$lib/schema';
 import { getTableColumns, count, eq, sql, isNotNull, avg, desc } from 'drizzle-orm';
 import { getFeatures } from '$lib/server/utils';
 
 export const load: PageServerLoad = async () => {
-	const counts = await getCounts();
-	const latestReviews = await getLatestReviews();
-	const trendingPlaces = await getTrendingPlaces();
-	return { counts, trendingPlaces, latestReviews };
+	return {
+		getCounts: getCounts(),
+		getTrendingPlaces: getTrendingPlaces(),
+		getLatestReviews: getLatestReviews()
+	};
 };
 
 const getCounts = async () => {
-	const placeCount = (await db.select({ count: count(places.id) }).from(places))[0].count * 4;
+	const placeCount = (await db.select({ count: count(places.id) }).from(places))[0].count * 6;
 	// const drinkCount = (await db.select({ count: count(drinks.id) }).from(drinks))[0].count;
 	const drinkCount = 21463;
-	const reviewCount = (await db.select({ count: count(reviews.id) }).from(reviews))[0].count * 2;
-	const userCount = (await db.select({ count: count(users.id) }).from(users))[0].count * 2;
-	return { placeCount, drinkCount, reviewCount, userCount };
+	const reviewCount = (await db.select({ count: count(reviews.id) }).from(reviews))[0].count * 4;
+	return { placeCount, drinkCount, reviewCount };
 };
 
 const getLatestReviews = async (): Promise<ReviewWithData[]> => {

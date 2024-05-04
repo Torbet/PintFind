@@ -6,8 +6,7 @@
 	import { kFormatter } from '$lib/utils';
 
 	export let data: PageServerData;
-	let { counts, trendingPlaces, latestReviews } = data;
-	let { drinkCount, placeCount, reviewCount, userCount } = counts;
+	let { getCounts, getTrendingPlaces, getLatestReviews } = data;
 </script>
 
 <svelte:head>
@@ -52,20 +51,37 @@
 	<p class="text-3xl font-semibold text-gray-500">Explore, Compare and Enjoy Local Bars & Brews</p>
 
 	<div class="stats">
-		<div class="stat">
-			<div class="stat-title">Pints</div>
-			<div class="stat-value">{kFormatter(drinkCount)}</div>
-		</div>
+		{#await getCounts}
+			<div class="stat">
+				<div class="stat-title">Pints</div>
+				<div class="stat-value">20k</div>
+			</div>
 
-		<div class="stat">
-			<div class="stat-title">Pubs & Bars</div>
-			<div class="stat-value">{kFormatter(placeCount)}</div>
-		</div>
+			<div class="stat">
+				<div class="stat-title">Pubs & Bars</div>
+				<div class="stat-value">4k+</div>
+			</div>
 
-		<div class="stat">
-			<div class="stat-title">Reviews</div>
-			<div class="stat-value">{kFormatter(reviewCount)}</div>
-		</div>
+			<div class="stat">
+				<div class="stat-title">Reviews</div>
+				<div class="stat-value">200+</div>
+			</div>
+		{:then { drinkCount, placeCount, reviewCount }}
+			<div class="stat">
+				<div class="stat-title">Pints</div>
+				<div class="stat-value">{kFormatter(drinkCount)}</div>
+			</div>
+
+			<div class="stat">
+				<div class="stat-title">Pubs & Bars</div>
+				<div class="stat-value">{kFormatter(placeCount)}</div>
+			</div>
+
+			<div class="stat">
+				<div class="stat-title">Reviews</div>
+				<div class="stat-value">{kFormatter(reviewCount)}</div>
+			</div>
+		{/await}
 	</div>
 
 	<a href="/search" class="btn btn-primary w-full text-xl">
@@ -144,7 +160,7 @@
 
 		<Rating rating={5} size={28} />
 		<span class="font-semibold text-gray-500"
-			>Loved by <span class="font-bold">{userCount}</span> members</span
+			>Loved by <span class="font-bold">500+</span> members</span
 		>
 	</div>
 </section>
@@ -224,15 +240,19 @@
 <section class="flex flex-col gap-4">
 	<h2 class="text-xl font-bold">Trending Places</h2>
 
-	<div
-		class="bleed carousel carousel-center gap-4 px-4 md:m-0 md:grid md:grid-cols-2 md:pl-0 lg:grid-cols-3"
-	>
-		{#each trendingPlaces as place}
-			<div class="carousel-item w-[95%] md:w-full">
-				<PlaceCard {place} />
-			</div>
-		{/each}
-	</div>
+	{#await getTrendingPlaces}
+		<span class="loading loading-dots loading-lg mx-auto"></span>
+	{:then trendingPlaces}
+		<div
+			class="bleed carousel carousel-center gap-4 px-4 md:m-0 md:grid md:grid-cols-2 md:pl-0 lg:grid-cols-3"
+		>
+			{#each trendingPlaces as place}
+				<div class="carousel-item w-[95%] md:w-full">
+					<PlaceCard {place} />
+				</div>
+			{/each}
+		</div>
+	{/await}
 </section>
 
 <div class="divider"></div>
@@ -240,13 +260,17 @@
 <section class="flex flex-col gap-4">
 	<h2 class="text-xl font-bold">Latest Reviews</h2>
 
-	<div
-		class="bleed carousel carousel-center gap-4 px-4 md:m-0 md:grid md:grid-cols-2 md:pl-0 lg:grid-cols-3"
-	>
-		{#each latestReviews as review}
-			<div class="carousel-item w-[95%] md:w-full">
-				<Review {review} />
-			</div>
-		{/each}
-	</div>
+	{#await getLatestReviews}
+		<span class="loading loading-dots loading-lg mx-auto"></span>
+	{:then latestReviews}
+		<div
+			class="bleed carousel carousel-center gap-4 px-4 md:m-0 md:grid md:grid-cols-2 md:pl-0 lg:grid-cols-3"
+		>
+			{#each latestReviews as review}
+				<div class="carousel-item w-[95%] md:w-full">
+					<Review {review} />
+				</div>
+			{/each}
+		</div>
+	{/await}
 </section>
