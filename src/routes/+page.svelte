@@ -4,9 +4,10 @@
 	import Review from '$lib/components/Review.svelte';
 	import Rating from '$lib/components/Rating.svelte';
 	import { kFormatter } from '$lib/utils';
+	import { goto } from '$app/navigation';
 
 	export let data: PageServerData;
-	let { getCounts, getTrendingPlaces, getLatestReviews } = data;
+	let { query, getCounts, getTrendingPlaces, getLatestReviews } = data;
 </script>
 
 <svelte:head>
@@ -89,25 +90,56 @@
 		{/await}
 	</div>
 
-	<a href="/review" class="btn btn-primary w-full text-xl">
-		Get Started
-		<svg
-			class="animate-pulse"
-			width="24"
-			height="24"
-			xmlns="http://www.w3.org/2000/svg"
-			fill="none"
-			viewBox="0 0 24 24"
-			stroke-width="3"
-			stroke="currentColor"
-		>
-			<path
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5"
+	<div class="join">
+		<label class="input join-item input-bordered flex grow items-center gap-2">
+			<svg
+				width="24"
+				height="24"
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="opacity-70"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+				/>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
+				/>
+			</svg>
+			<input
+				type="text"
+				placeholder="Find Pints"
+				bind:value={query}
+				on:keydown={(e) => e.key === 'Enter' && goto(`/search?query=${query}`)}
+				class="grow"
 			/>
-		</svg>
-	</a>
+		</label>
+		<a href="/search?query={query}" class="btn btn-primary join-item">
+			<svg
+				width="24"
+				height="24"
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="2"
+				stroke="currentColor"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+				/>
+			</svg>
+			<span class="hidden md:block">Search</span>
+		</a>
+	</div>
 
 	<div class="flex flex-col items-center gap-1">
 		<div class="avatar-group -space-x-5 py-0 rtl:space-x-reverse">

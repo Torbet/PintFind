@@ -4,8 +4,10 @@ import { places, reviews } from '$lib/schema';
 import { getTableColumns, count, eq, sql, isNotNull, avg, desc } from 'drizzle-orm';
 import { getFeatures } from '$lib/server/utils';
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({ request }) => {
+	const query = request.headers.get('cf-ipcity') || 'Edinburgh';
 	return {
+		query,
 		getCounts: getCounts(),
 		getTrendingPlaces: getTrendingPlaces(),
 		getLatestReviews: getLatestReviews()
