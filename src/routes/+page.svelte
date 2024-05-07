@@ -24,7 +24,7 @@
 	<meta name="twitter:card" content="summary" />
 	<meta name="twitter:title" content="PintFind" />
 	<meta name="twitter:description" content="Discover the Perfect Pint" />
-	<meta name="twitter:image" content="https://pintfind.com/logo.png" />
+	<meta name="twitter:image" content="https://pintfind.com/logo.jpg" />
 </svelte:head>
 
 <section class="mx-auto flex h-[90svh] max-w-2xl flex-col justify-center gap-6 text-center">
