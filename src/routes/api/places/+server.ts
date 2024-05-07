@@ -12,9 +12,9 @@ export const GET: RequestHandler = async ({ locals, url }) => {
 
 	const query = url.searchParams.get('q');
 	if (!query) return error(400, 'Bad Request');
+	/*
 	const likeQuery = `%${query.replace(/\s+/g, '%')}%`;
 
-	/*
 	const existingResults = await db
 		.select()
 		.from(places)
@@ -54,7 +54,7 @@ export const GET: RequestHandler = async ({ locals, url }) => {
 			if (!address?.name || !postcode?.name || !place?.name || !country?.name) return null;
 			const { phone, website, photos, open_hours } = metadata;
 
-			let data = {
+			return {
 				name,
 				slug: slugify(name, place.name, postcode.name),
 				mapboxId: mapbox_id,
@@ -70,14 +70,6 @@ export const GET: RequestHandler = async ({ locals, url }) => {
 				externalIds: external_ids,
 				openingHours: formatOpeningHours(open_hours?.periods)
 			};
-
-			console.log({
-				name: data.name,
-				city: data.city,
-				openingHours: data.openingHours
-			});
-
-			return data;
 		})
 		.filter(Boolean);
 
