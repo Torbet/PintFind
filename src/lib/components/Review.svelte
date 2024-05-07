@@ -46,11 +46,11 @@
 		<Rating {rating} size={26} />
 		<span class="badge badge-outline font-semibold">{currencySymbol}{price?.toFixed(2)}</span>
 		{#if studentDiscount}
-			<span class="badge badge-outline">
+			<span class="badge badge-outline font-semibold">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
-					width="18"
-					height="18"
+					width="20"
+					height="20"
 					viewBox="0 0 24 24"
 					fill="none"
 					stroke="currentColor"
