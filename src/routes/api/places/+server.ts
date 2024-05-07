@@ -38,6 +38,7 @@ export const GET: RequestHandler = async ({ locals, url }) => {
 		access_token: MAPBOX_TOKEN,
 		types: 'poi',
 		language: 'en',
+		country: 'gb',
 		poi_category: 'bar,pub,gastropub,restaurant,hotel,hotel_bar,social_club,nightclub',
 		limit: String(5 - existingResults.length)
 	});
