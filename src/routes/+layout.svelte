@@ -40,7 +40,7 @@
 							viewBox="0 0 24 24"
 							fill="none"
 							stroke="currentColor"
-							stroke-width="2"
+							stroke-width="1.5"
 							stroke-linecap="round"
 							stroke-linejoin="round"
 							><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg
@@ -57,12 +57,9 @@
 							viewBox="0 0 24 24"
 							fill="none"
 							stroke="currentColor"
-							stroke-width="2"
+							stroke-width="1.5"
 							stroke-linecap="round"
-							stroke-linejoin="round"
-							><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" /><path d="M8 12h.01" /><path
-								d="M12 12h.01"
-							/><path d="M16 12h.01" /></svg
+							stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" /></svg
 						>
 						Review
 					</a>
@@ -76,7 +73,7 @@
 							viewBox="0 0 24 24"
 							fill="none"
 							stroke="currentColor"
-							stroke-width="2"
+							stroke-width="1.5"
 							stroke-linecap="round"
 							stroke-linejoin="round"
 							><path
@@ -95,7 +92,7 @@
 							viewBox="0 0 24 24"
 							fill="none"
 							stroke="currentColor"
-							stroke-width="2"
+							stroke-width="1.5"
 							stroke-linecap="round"
 							stroke-linejoin="round"
 							class="lucide lucide-wallet"
@@ -191,7 +188,7 @@
 						viewBox="0 0 24 24"
 						fill="none"
 						stroke="currentColor"
-						stroke-width="2"
+						stroke-width="1.5"
 						stroke-linecap="round"
 						stroke-linejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg
 					>
@@ -207,12 +204,9 @@
 						viewBox="0 0 24 24"
 						fill="none"
 						stroke="currentColor"
-						stroke-width="2"
+						stroke-width="1.5"
 						stroke-linecap="round"
-						stroke-linejoin="round"
-						><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" /><path d="M8 12h.01" /><path
-							d="M12 12h.01"
-						/><path d="M16 12h.01" /></svg
+						stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" /></svg
 					>
 					Review
 				</a>
@@ -226,7 +220,7 @@
 						viewBox="0 0 24 24"
 						fill="none"
 						stroke="currentColor"
-						stroke-width="2"
+						stroke-width="1.5"
 						stroke-linecap="round"
 						stroke-linejoin="round"
 						><path
@@ -245,7 +239,7 @@
 						viewBox="0 0 24 24"
 						fill="none"
 						stroke="currentColor"
-						stroke-width="2"
+						stroke-width="1.5"
 						stroke-linecap="round"
 						stroke-linejoin="round"
 						class="lucide lucide-wallet"

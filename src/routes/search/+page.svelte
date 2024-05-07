@@ -86,21 +86,17 @@
 <section class="mb-4 flex gap-2">
 	<label class="input input-bordered flex grow items-center gap-2">
 		<svg
+			xmlns="http://www.w3.org/2000/svg"
 			width="24"
 			height="24"
-			xmlns="http://www.w3.org/2000/svg"
-			fill="none"
 			viewBox="0 0 24 24"
-			stroke-width="1.5"
+			fill="none"
 			stroke="currentColor"
-			class="opacity-70"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			class="opacity-70"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg
 		>
-			<path
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-			/>
-		</svg>
 		<input
 			type="text"
 			bind:value={query}
@@ -112,39 +108,47 @@
 
 	<button on:click={() => (showFilterModal = true)} class="btn btn-outline btn-primary">
 		<svg
+			xmlns="http://www.w3.org/2000/svg"
 			width="24"
 			height="24"
-			xmlns="http://www.w3.org/2000/svg"
-			fill="none"
 			viewBox="0 0 24 24"
-			stroke-width="2"
+			fill="none"
 			stroke="currentColor"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			><line x1="21" x2="14" y1="4" y2="4" /><line x1="10" x2="3" y1="4" y2="4" /><line
+				x1="21"
+				x2="12"
+				y1="12"
+				y2="12"
+			/><line x1="8" x2="3" y1="12" y2="12" /><line x1="21" x2="16" y1="20" y2="20" /><line
+				x1="12"
+				x2="3"
+				y1="20"
+				y2="20"
+			/><line x1="14" x2="14" y1="2" y2="6" /><line x1="8" x2="8" y1="10" y2="14" /><line
+				x1="16"
+				x2="16"
+				y1="18"
+				y2="22"
+			/></svg
 		>
-			<path
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75"
-			/>
-		</svg>
 		<span class="hidden md:block">Filter</span>
 	</button>
 
 	<button on:click={search} class="btn btn-primary">
 		<svg
+			xmlns="http://www.w3.org/2000/svg"
 			width="24"
 			height="24"
-			xmlns="http://www.w3.org/2000/svg"
-			fill="none"
 			viewBox="0 0 24 24"
-			stroke-width="2"
+			fill="none"
 			stroke="currentColor"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg
 		>
-			<path
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-			/>
-		</svg>
 		<span class="hidden md:block">Search</span>
 	</button>
 </section>

@@ -43,25 +43,24 @@
 	</a>
 	<p class="line-clamp-1 font-bold">{drink.name} at {place.name}</p>
 	<div class="flex items-center gap-2">
-		<Rating {rating} size={24} />
-		<span class="badge badge-outline text-gray-700">{currencySymbol}{price?.toFixed(2)}</span>
+		<Rating {rating} size={26} />
+		<span class="badge badge-outline font-semibold">{currencySymbol}{price?.toFixed(2)}</span>
 		{#if studentDiscount}
-			<span class="badge badge-outline text-gray-700">
+			<span class="badge badge-outline">
 				<svg
-					width={18}
-					height={18}
 					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
+					width="18"
+					height="18"
 					viewBox="0 0 24 24"
-					stroke-width="1.5"
+					fill="none"
 					stroke="currentColor"
+					stroke-width="2.2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					><path
+						d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"
+					/><path d="M22 10v6" /><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" /></svg
 				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"
-					/>
-				</svg>
 			</span>
 		{/if}
 	</div>
