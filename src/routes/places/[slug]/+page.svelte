@@ -250,7 +250,7 @@
 	<h2 class="text-xl font-bold">Ratings & Reviews</h2>
 
 	{#if avgRating}
-		<div class="mx-auto flex w-full max-w-2xl items-center justify-between">
+		<div class="mx-auto flex w-full max-w-2xl flex-col items-center justify-between md:flex-row">
 			<span class="flex flex-col items-center text-lg lg:flex-row lg:items-end"
 				><span class="text-6xl font-bold">{avgRating.toFixed(1)}</span> out of 5</span
 			>
