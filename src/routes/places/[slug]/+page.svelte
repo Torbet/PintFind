@@ -235,7 +235,7 @@
 			height="auto"
 			src={image}
 			alt={name}
-			class="w-full flex-1 rounded-box lg:w-1/2"
+			class="aspect-square w-full flex-1 rounded-box lg:w-1/2"
 		/>
 	{/if}
 </div>
