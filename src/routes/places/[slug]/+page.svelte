@@ -322,6 +322,11 @@
 <section class=" container flex flex-col gap-4">
 	<h2 class="text-xl font-bold">Menu</h2>
 
+	<div class="flex flex-col">
+		<span class="text-gray-500">Average Price</span>
+		<span class="text-6xl font-bold">{currencySymbol}{avgPrice.toFixed(2)}</span>
+	</div>
+
 	<div class="overflow-x-auto">
 		<table class="table">
 			<!-- head -->
