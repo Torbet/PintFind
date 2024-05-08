@@ -11,10 +11,20 @@
 	import 'mapbox-gl/dist/mapbox-gl.css';
 
 	export let data: PageServerData & { user: User | null };
-	let { user, features, ratings, latestReviews, menu, userReview, relatedPlaces, MAPBOX_TOKEN } =
-		data;
+	let {
+		user,
+		features,
+		ratings,
+		latestReviews,
+		menu,
+		userReview,
+		relatedPlaces,
+		following,
+		MAPBOX_TOKEN
+	} = data;
 	$: ({ place } = data);
 	$: ({
+		id,
 		name,
 		street,
 		postcode,
@@ -65,6 +75,15 @@
 			userReview = { rating, createdAt: new Date() };
 		}
 	}
+
+	const follow = async () => {
+		await fetch(`/api/followings`, {
+			method: following ? 'DELETE' : 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ placeId: id })
+		});
+		following = !following;
+	};
 </script>
 
 <svelte:head>
@@ -228,6 +247,23 @@
 				</div>
 			</div>
 		{/if}
+		<button on:click={follow} class="btn btn-primary mt-auto" class:btn-outline={!following}>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="24"
+				height="24"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				><path
+					d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
+				/></svg
+			>
+			{following ? 'Following' : 'Follow'}
+		</button>
 	</div>
 	{#if image}
 		<img

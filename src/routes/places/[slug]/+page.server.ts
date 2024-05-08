@@ -6,7 +6,7 @@ import { places, reviews, drinks } from '$lib/schema';
 import { eq, sql, getTableColumns, count, desc, and, not } from 'drizzle-orm';
 import { getFeatures } from '$lib/server/utils';
 
-export const load: PageServerLoad = async ({ params, locals }) => {
+export const load: PageServerLoad = async ({ params, locals, fetch }) => {
 	const { user } = locals;
 	const { slug } = params;
 
@@ -36,8 +36,21 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 			)[0]
 		: null;
 	const relatedPlaces = await getRelatedPlaces(place.id);
+	const following = user
+		? await fetch(`/api/followings?placeId=${place.id}`).then((res) => res.json())
+		: false;
 
-	return { place, features, ratings, latestReviews, menu, userReview, relatedPlaces, MAPBOX_TOKEN };
+	return {
+		place,
+		features,
+		ratings,
+		latestReviews,
+		menu,
+		userReview,
+		relatedPlaces,
+		following,
+		MAPBOX_TOKEN
+	};
 };
 
 const getMenu = async (placeId: string) => {

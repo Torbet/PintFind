@@ -166,6 +166,21 @@ export const featuresToReviews = sqliteTable(
 	(t) => ({ pk: primaryKey({ columns: [t.featureId, t.reviewId] }) })
 );
 
+export const followings = sqliteTable(
+	'followings',
+	{
+		userId: text('user_id')
+			.notNull()
+			.references(() => users.id),
+		placeId: text('place_id')
+			.notNull()
+			.references(() => places.id)
+	},
+	(t) => ({
+		pk: primaryKey({ columns: [t.userId, t.placeId] })
+	})
+);
+
 // === RELATIONS ===
 
 export const userRelations = relations(users, ({ one, many }) => ({
