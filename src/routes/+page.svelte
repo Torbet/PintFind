@@ -27,7 +27,7 @@
 	<meta name="twitter:image" content="https://pintfind.com/logo.jpg" />
 </svelte:head>
 
-<section class="mx-auto flex h-[90svh] max-w-2xl flex-col justify-center gap-6 text-center">
+<section class="mx-auto flex h-[90svh] max-w-2xl flex-col justify-center gap-4 text-center">
 	<a href="/leaderboard" class="badge badge-primary badge-outline mx-auto p-4">
 		🍻 Win a free pint by topping the leaderboard!
 		<svg
@@ -132,6 +132,24 @@
 			<span class="hidden md:block">Search</span>
 		</a>
 	</div>
+
+	<a href="/review" class="btn btn-ghost">
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			width="24"
+			height="24"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" /><path
+				d="M18.375 2.625a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4Z"
+			/></svg
+		>
+		Write a Review
+	</a>
 
 	<div class="flex flex-col items-center gap-1">
 		<div class="avatar-group -space-x-5 py-0 rtl:space-x-reverse">
