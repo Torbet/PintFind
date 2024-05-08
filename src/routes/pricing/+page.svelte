@@ -252,7 +252,7 @@
 				<span class="text-4xl font-bold">Contact Us</span>
 			</div>
 
-			<span class="text-lg text-gray-500">Everything in Essential, plus:</span>
+			<span class="text-lg text-gray-500">Everything in Boost, plus:</span>
 
 			<ul class="flex flex-col gap-6">
 				<li class="flex gap-2">
@@ -271,7 +271,7 @@
 							d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
 						/>
 					</svg>
-					Deals and offers in your customers inbox
+					Deals and offers in your followers inbox
 				</li>
 				<li class="flex gap-2">
 					<svg
