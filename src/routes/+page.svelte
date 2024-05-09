@@ -219,6 +219,8 @@
 			<img
 				src="/searchPage.png"
 				alt="PintFind Search Page"
+				width="auto"
+				height="auto"
 				class="artboard artboard-demo phone-1 md:phone-3"
 			/>
 		</div>
