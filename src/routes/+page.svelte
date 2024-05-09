@@ -27,7 +27,7 @@
 	<meta name="twitter:image" content="https://pintfind.com/logo.jpg" />
 </svelte:head>
 
-<section class="mx-auto flex h-[90svh] max-w-2xl flex-col justify-center gap-4 text-center">
+<section class="mx-auto mb-8 flex h-[90svh] max-w-2xl flex-col justify-center gap-4 text-center">
 	<a href="/leaderboard" class="badge badge-primary badge-outline mx-auto p-4">
 		🍻 Win a free pint by topping the leaderboard!
 		<svg
@@ -211,6 +211,30 @@
 		>
 	</div>
 </section>
+
+<section class="flex flex-col items-center gap-6">
+	<div class="mockup-phone">
+		<div class="camera"></div>
+		<div class="display">
+			<img
+				src="/searchPage.png"
+				alt="PintFind Search Page"
+				class="artboard artboard-demo phone-1 md:phone-3"
+			/>
+		</div>
+	</div>
+
+	<h2 class="text-center text-4xl font-bold">
+		Anywhere, Anytime, <span class="text-primary">Any Drink</span>
+	</h2>
+
+	<p class="text-center text-2xl text-gray-600">Find the perfect pint, wherever you are.</p>
+	<p class="text-center text-2xl text-gray-600">
+		Search for your favorite drink, or discover new places to enjoy a cold one.
+	</p>
+</section>
+
+<div class="divider"></div>
 
 <section class="grid grid-cols-1 gap-4 md:grid-cols-3">
 	<div class="flex flex-col items-center gap-4 rounded-box border p-6 text-center">
