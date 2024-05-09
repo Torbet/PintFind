@@ -212,7 +212,7 @@
 	</div>
 </section>
 
-<section class="flex flex-col items-center gap-4">
+<section class="mx-auto mb-8 flex w-full max-w-2xl flex-col gap-4">
 	<div class="mockup-phone mb-6">
 		<div class="camera"></div>
 		<div class="display">
@@ -232,6 +232,20 @@
 	<p class="text-center text-2xl text-gray-600">
 		Search for your favorite drink, or discover new places to enjoy a cold one.
 	</p>
+	<a href="/search" class="btn btn-primary">
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			width="24"
+			height="24"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg
+		>
+		Get Started</a
+	>
 </section>
 
 <div class="divider"></div>
