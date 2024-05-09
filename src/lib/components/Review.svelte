@@ -37,7 +37,7 @@
 			</div>
 		</div>
 		<div class="flex flex-col">
-			<span class="flex items-center gap-1 font-semibold">
+			<span class:text-primary={user.verified} class="flex items-center gap-1 font-semibold">
 				{user.username}
 				{#if user.verified}
 					<svg
