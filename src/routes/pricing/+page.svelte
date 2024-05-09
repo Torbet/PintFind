@@ -134,7 +134,7 @@
 				Early access to new features
 			</li>
 		</ul>
-		<a href="https://buy.stripe.com/5kA4jTb7reFN4Wk3cc" class="btn btn-primary mt-auto"
+		<a href="https://buy.stripe.com/fZe03DcbvfJR0G44gi" class="btn btn-primary mt-auto"
 			>Get Started</a
 		>
 	</div>
