@@ -212,8 +212,8 @@
 	</div>
 </section>
 
-<section class="flex flex-col items-center gap-6">
-	<div class="mockup-phone">
+<section class="flex flex-col items-center gap-4">
+	<div class="mockup-phone mb-6">
 		<div class="camera"></div>
 		<div class="display">
 			<img
