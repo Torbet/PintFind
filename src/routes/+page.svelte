@@ -114,7 +114,7 @@
 				placeholder="Find Pints"
 				bind:value={query}
 				on:keydown={(e) => e.key === 'Enter' && goto(`/search?query=${query}`)}
-				class="grow"
+				class="grow font-medium"
 			/>
 		</label>
 		<a href="/search?query={query}" class="btn btn-primary join-item">
