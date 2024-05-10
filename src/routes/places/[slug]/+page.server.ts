@@ -10,7 +10,7 @@ export const load: PageServerLoad = async ({ params, locals, fetch }) => {
 	const { user } = locals;
 	const { slug } = params;
 
-	const [place] = await db
+	const result = await db
 		.select({
 			...getTableColumns(places),
 			avgRating: sql<number>`AVG(${reviews.rating})`,
@@ -21,6 +21,7 @@ export const load: PageServerLoad = async ({ params, locals, fetch }) => {
 		.from(places)
 		.where(eq(places.slug, slug))
 		.leftJoin(reviews, eq(places.id, reviews.placeId));
+	const place = result.length ? result[0] : null;
 	if (!place) return error(404, 'Place not found');
 
 	const features = await getFeatures(place.id);
