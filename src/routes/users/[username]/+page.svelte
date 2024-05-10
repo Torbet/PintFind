@@ -7,7 +7,7 @@
 	import { goto } from '$app/navigation';
 
 	export let data: PageServerData;
-	const { user, latestReviews, favouritePlaces, favouriteDrinks } = data;
+	const { user, latestReviews, favouritePlaces, favouriteDrinks, canEdit } = data;
 	const { username, avatar, createdAt, reviewCount, verified } = user;
 </script>
 
@@ -50,6 +50,25 @@
 			<span class="text-gl text-gray-500">Joined {formatDate(createdAt)}</span>
 		</div>
 	</div>
+	{#if canEdit}
+		<a href="/users/{username}/edit" class="btn btn-outline btn-primary">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="24"
+				height="24"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" /><path
+					d="M18.375 2.625a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4Z"
+				/></svg
+			>
+			Edit Profile</a
+		>
+	{/if}
 </section>
 
 <div class="divider"></div>

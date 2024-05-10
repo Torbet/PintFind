@@ -127,7 +127,7 @@
 								class="menu dropdown-content menu-sm z-[1] mt-2 w-52 rounded-box bg-base-100 p-2 shadow"
 							>
 								<li>
-									<a href="/profile" class="justify-between"
+									<a href="/users/{user.username}" class="justify-between"
 										>Profile<span class="badge badge-primary badge-outline">New</span></a
 									>
 								</li>
@@ -223,7 +223,7 @@
 		<ul class="menu min-h-full w-80 gap-2 bg-base-200 p-4">
 			{#if user}
 				<li>
-					<a href="/profile" class="flex">
+					<a href="/users/{user.username}" class="flex">
 						<div class="avatar placeholder">
 							<div class="h-12 w-12 rounded-full bg-neutral text-neutral-content">
 								{#if user.avatar}

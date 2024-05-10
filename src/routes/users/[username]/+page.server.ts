@@ -5,7 +5,7 @@ import { users, reviews, places, drinks, styles } from '$lib/schema';
 import { sql, eq, getTableColumns, desc, avg, count } from 'drizzle-orm';
 import { getFeatures } from '$lib/server/utils';
 
-export const load: PageServerLoad = async ({ params }) => {
+export const load: PageServerLoad = async ({ params, locals }) => {
 	const { username } = params;
 	const [user] = await db
 		.select({
@@ -21,7 +21,9 @@ export const load: PageServerLoad = async ({ params }) => {
 	const favouritePlaces = await getFavouritePlaces(user.id);
 	const favouriteDrinks = await getFavouriteDrinks(user.id);
 
-	return { user, latestReviews, favouritePlaces, favouriteDrinks };
+	const canEdit = locals.user && locals.user.id === user.id;
+
+	return { user, latestReviews, favouritePlaces, favouriteDrinks, canEdit };
 };
 
 const getLatestReviews = async (userId: string): Promise<ReviewWithData[]> => {
