@@ -9,6 +9,10 @@
 	export let data: PageServerData;
 	const { user, latestReviews, favouritePlaces, favouriteDrinks, canEdit } = data;
 	const { username, avatar, createdAt, reviewCount, verified } = user;
+
+	const levels = [1, 5, 10, 20, 30, 40, 50];
+	const level = levels.find((l) => reviewCount < l) || 0;
+	const progress = (reviewCount / level) * 100;
 </script>
 
 <svelte:head>
@@ -49,6 +53,12 @@
 			<span class="badge badge-outline badge-lg text-xl text-gray-500">{reviewCount} reviews</span>
 			<span class="text-gl text-gray-500">Joined {formatDate(createdAt)}</span>
 		</div>
+	</div>
+	<div class="mx-auto flex w-full items-center gap-2 lg:max-w-2xl">
+		<span class="bage-lg badge badge-primary badge-outline badge-lg whitespace-nowrap font-semibold"
+			>Level {levels.indexOf(level)}</span
+		>
+		<progress class="progress progress-primary h-4" value={progress} max="100"></progress>
 	</div>
 	{#if canEdit}
 		<a href="/users/{username}/edit" class="btn btn-outline btn-primary">
